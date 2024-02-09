@@ -144,6 +144,12 @@ contract Database {
     }
 
     function getUsername(address publickey) public view returns(string memory) {
+        /**
+        * userList 매핑에 저장된 이름을 불러옵니다.
+        *
+        * @param    publickey   Username을 불러올 주소
+        * @return   name        계정의 이름
+        */
         require(checkUserExists(publickey), "User is not registered!");
         return userList[publickey].name;
     }
@@ -166,6 +172,13 @@ contract Database {
     }
 
     function checkAlreadyFriends(address publickey1, address publickey2) internal view returns(bool) {
+        /**
+        * p1의 friendList를 완전탐색하여 p2의 address가 있는지 찾아봅니다.
+        * friendList의 length가 더 작은 쪽을 탐색합니다.
+        * 
+        * @param    publickey1  판별할 유저의 address입니다.
+        * @param    publickey2  판별할 유저의 address입니다.
+        */
         
         if(userList[publickey1].friendList.length > userList[publickey2].friendList.length)
         {
@@ -181,15 +194,35 @@ contract Database {
     }
 
     function _addFriend(address me, address friendkey, string memory name) internal {
+        /**
+        * me -> friendkey 관계를 만들어줍니다.
+        * 
+        * @param    me          친구를 등록할 유저의 address입니다.
+        * @param    friendkey   친구로 등록할 유저의 address입니다.
+        * @param    name        친구로 등록할 유저의 이름입니다.
+        */
         friend memory newFriend = friend(friendkey, name);
         userList[me].friendList.push(newFriend);
     }
 
     function getMyFriendList() external view returns(friend[] memory) {
+        /**
+        * msg.sender의 친구 목록을 전부 return합니다.
+        * 
+        * @return   friendList      전체 친구 목록입니다.
+        */
         return userList[msg.sender].friendList;
     }
 
     function _getChatCode(address publickey1, address publickey2) internal pure returns(bytes32) {
+        /**
+        * allMessages에 접근하기 위한 key를 계산합니다.
+        * Hash(publickey1, publickey2)를 반환합니다.
+        *
+        * @param    publickey1  유저 1의 address입니다.
+        * @param    publickey2  유저 2의 address입니다.
+        * @return   Hash        keccak256으로 생성된 해시입니다.
+        */
         if (publickey1 < publickey2)
             return keccak256(abi.encodePacked(publickey1, publickey2));
         else
@@ -197,6 +230,12 @@ contract Database {
     }
 
     function sendMessage(address friendkey, string calldata _msg) external {
+        /**
+        * friendkey를 이용해서 메세지를 보냅니다.
+        * 
+        * @param    friendkey   메세지를 보낼 유저의 address입니다.
+        * @param    _msg        보낼 메세지입니다.
+        */
         require(checkUserExists(msg.sender), "Create an account first!");
         require(checkUserExists(friendkey), "User is not registered!");
         require(checkAlreadyFriends(msg.sender,friendkey), "You are not friends with the given user");
@@ -207,6 +246,12 @@ contract Database {
     }
 
     function readMessage(address friendkey) external view returns(message[] memory) {
+        /**
+        * 다른 유저와 주고받은 메세지를 전부 읽어옵니다.
+        *
+        * @param    friendkey   메세지를 주고받은 유저의 address입니다.
+        * @return   message[]   주고받은 메세지 전체입니다.
+        */
         bytes32 chatCode = _getChatCode(msg.sender, friendkey);
         return allMessages[chatCode];
     }
