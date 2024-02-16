@@ -1,0 +1,375 @@
+:root {
+    --blue: #7BCDD8;
+    --gray: #E2E2E2;
+    --black: #252525;
+    --shadow: #252525AA;
+    --active: #DADADA;
+}
+
+/* Login */
+.Login {
+    background-color: var(--gray);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .Container {
+        background-color: var(--blue);
+        box-shadow: 0px 0px 10px var(--shadow);
+        width: 1000px;
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 48px;
+
+        .Logo {
+            display: flex;
+            flex-direction: column;
+
+            img {
+                height: 250px;
+                margin-bottom: 24px;
+            }
+
+            span {
+                color: white;
+                font-family: Bangers, system-ui;
+                font-size: 64px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+        }
+
+        span {
+            color: white;
+            font-family: Amiko, sans-serif;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+    }
+}
+
+/* Main */
+.Main {
+    background-color: var(--gray);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .Container {
+        background-color: var(--blue);
+        box-shadow: 0px 0px 10px var(--shadow);
+        width: 1000px;
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+
+        .NavBar {
+            height: 40px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            padding-left: 12px;
+            padding-right: 12px;
+            display: flex;
+            justify-content: space-between;
+
+            .Logo {
+                display: flex;
+
+                img {
+                    margin-right: 7px;
+                }
+
+                span {
+                    color: white;
+                    font-family: Bangers, system-ui;
+                    font-size: 36px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+            }
+
+            .User {
+                display: flex;
+                align-items: center;
+
+                .Name {
+                    margin-right: 8px;
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+
+                .Address {
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+            }
+        }
+
+        .Contents {
+            height: 100%;
+            display: flex;
+            align-items: center;
+
+            .SideBar {
+                flex: 1;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                margin-left: 12px;
+                margin-right: 12px;
+
+                .TopBar {
+                    height: 50px;
+                    background-color: var(--black);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+
+                .ChatCardPanel {
+                    height: 436px;
+                    overflow-y: scroll;
+                    background-color: var(--gray);
+
+                    .ChatCard {
+                        height: 72.5px;
+                        display: flex;
+                        background-color: white;
+                        padding-left: 8px;
+
+                        &:hover {
+                            background-color: var(--gray);
+                        }
+
+                        &:active {
+                            background-color: var(--active);
+                        }
+
+                        .User {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+
+                            .Name {
+                                margin-right: 8px;
+                                color: black;
+                                font-family: Amiko, sans-serif;
+                                font-size: 16px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: normal;
+                            }
+
+                            .Address {
+                                color: gray;
+                                font-family: Amiko, sans-serif;
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: normal;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .Bottom {
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .AddNewChat {
+                    cursor: pointer;
+
+                    &:hover {
+                        path {
+                            fill: var(--gray);
+                        }
+                    }
+
+                    &:active {
+                        path {
+                            fill: var(--active);
+                        }
+                    }
+                }
+            }
+        }
+
+        .ChatRoom {
+            flex: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-right: 12px;
+
+            .TopBar {
+                height: 50px;
+                background-color: var(--black);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-left: 12px;
+                padding-right: 10px;
+
+                .UserInfo {
+                    .Name {
+                        margin-right: 8px;
+                        color: white;
+                        font-family: Amiko, sans-serif;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                    }
+
+                    .Address {
+                        color: white;
+                        font-family: Amiko, sans-serif;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                    }
+                }
+
+                .Refresh {
+                    cursor: pointer;
+
+                    &:hover {
+                        path {
+                            fill: var(--gray);
+                        }
+                    }
+
+                    &:active {
+                        path {
+                            fill: var(--active);
+                        }
+                    }
+                }
+            }
+
+            .MessagePanel {
+                height: 412px;
+                display: flex;
+                flex-direction: column;
+                background-color: var(--gray);
+                padding: 12px;
+                overflow: scroll;
+                gap: 8px;
+
+                .Message {
+                    display: flex;
+                    flex-direction: column;
+
+                    .Name {
+                        color: black;
+                        font-family: Amiko, sans-serif;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                    }
+
+                    .Contents {
+                        display: flex;
+
+                        .Text {
+                            background-color: white;
+                            max-width: 400px;
+                            padding: 8px;
+                            margin-right: 4px;
+                            color: black;
+                            font-family: Amiko, sans-serif;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                        }
+
+                        .Time {
+                            margin-top: auto;
+                            color: gray;
+                            font-family: Amiko, sans-serif;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                        }
+                    }
+                }
+            }
+
+            .Bottom {
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .Input {
+                    width: 100%;
+                    height: 40px;
+                    background-color: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 12px;
+
+                    input {
+                        width: 100%;
+                        border: none;
+                        outline: none;
+                        color: var(--black);
+                        font-family: Amiko, sans-serif;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                    }
+
+                }
+
+                .Send {
+                    cursor: pointer;
+
+                    &:hover {
+                        path {
+                            fill: var(--gray);
+                        }
+                    }
+
+                    &:active {
+                        path {
+                            fill: var(--active);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
