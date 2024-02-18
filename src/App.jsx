@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ethers } from "ethers";
 import Login from "./pages/Login";
 import Main from "./pages/Main";
@@ -6,21 +7,25 @@ import { abi } from "./abi";
 import "./style.css"
 
 // Add the contract address inside the quotes
-const CONTRACT_ADDRESS = "0xa32a2ea6f3d0938132ebcb5cc9c9f3fe16da725e";
+// TODO: 로그인 페이지 내에서 컨트랙트 배포
+const CONTRACT_ADDRESS = "0xB746e393d3687C12A5F2F395f2583aCF02F563AF";
 
 function App(props) {
   const [myName, setMyName] = useState(null);
   const [myPublicKey, setMyPublicKey] = useState(null);
   const [myContract, setMyContract] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Save the contents of abi in a variable
   const contractABI = abi;
+  // const navigate = useNavigate();
   let provider;
   let signer;
 
   // Login to MetaMask and check the if the user exists else creates one
   async function login() {
     let res = await connectToMetamask();
+
     if (res === true) {
       provider = new ethers.providers.Web3Provider(window.ethereum);
       signer = provider.getSigner();
@@ -39,12 +44,14 @@ function App(props) {
         }
         setMyName(username);
         setMyPublicKey(address);
+        setIsLoggedIn(true);      // 로그인 성공
       } catch (err) {
         alert("CONTRACT_ADDRESS not set properly!");
       }
     } else {
       alert("Couldn't connect to MetaMask");
     }
+    return isLoggedIn;
   }
 
   // Check if the MetaMask connects 
@@ -58,8 +65,15 @@ function App(props) {
   }
 
   return (
-    /* <Login login={async () => login()} />*/
-    <Main />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" 
+          element={<Login login={async () => login()} />} />
+        <Route path="/main" 
+          element={isLoggedIn ? <Main /> : <Navigate to="/" />} 
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
