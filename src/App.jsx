@@ -6,9 +6,8 @@ import Main from "./pages/Main";
 import { abi } from "./abi";
 import "./style.css"
 
-// Add the contract address inside the quotes
 // TODO: 로그인 페이지 내에서 컨트랙트 배포
-const CONTRACT_ADDRESS = "0xB746e393d3687C12A5F2F395f2583aCF02F563AF";
+const CONTRACT_ADDRESS = "0x35bdfc8c7675c450721add735d04645f0eb332f2";
 
 function App(props) {
   const [myName, setMyName] = useState(null);
@@ -16,13 +15,10 @@ function App(props) {
   const [myContract, setMyContract] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Save the contents of abi in a variable
   const contractABI = abi;
-  // const navigate = useNavigate();
   let provider;
   let signer;
 
-  // Login to MetaMask and check the if the user exists else creates one
   async function login() {
     let res = await connectToMetamask();
 
@@ -34,17 +30,17 @@ function App(props) {
         setMyContract(contract);
         const address = await signer.getAddress();
         let present = await contract.checkUserExists(address);
-        let username;
+        let name;
         if (present)
-          username = await contract.getUsername(address);
+          name = await contract.getUsername(address);
         else {
-          username = prompt('Enter a username', 'Guest');
-          if (username === '') username = 'Guest';
-          await contract.createAccount(username);
+          name = prompt('Enter your name', 'Guest');
+          if (name === '') name = 'Guest';
+          await contract.createAccount(name);
         }
-        setMyName(username);
+        setMyName(name);
         setMyPublicKey(address);
-        setIsLoggedIn(true);      // 로그인 성공
+        setIsLoggedIn(true);
       } catch (err) {
         alert("CONTRACT_ADDRESS not set properly!");
       }
@@ -54,7 +50,6 @@ function App(props) {
     return isLoggedIn;
   }
 
-  // Check if the MetaMask connects 
   async function connectToMetamask() {
     try {
       await window.ethereum.enable();
@@ -67,11 +62,10 @@ function App(props) {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" 
+        <Route path="/"
           element={<Login login={async () => login()} />} />
-        <Route path="/main" 
-          element={isLoggedIn ? <Main /> : <Navigate to="/" />} 
-        />
+        <Route path="/main"
+          element={isLoggedIn ? <Main name={myName} address={myPublicKey} /> : <Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );

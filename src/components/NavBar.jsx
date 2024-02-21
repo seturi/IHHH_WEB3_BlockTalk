@@ -1,4 +1,5 @@
 import React from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import LogoImg from "../images/blocktalk_t.png"
 
 export function NavBar(props) {
@@ -9,8 +10,12 @@ export function NavBar(props) {
                 <span>BLOCKTALK</span>
             </div>
             <div className="User">
-                <span className="Name">{props.name}</span>
-                <span className="Address">{props.address}</span>
+                <CopyToClipboard text={props.name}>
+                    <span className="Name">{props.name}</span>
+                </CopyToClipboard>
+                <CopyToClipboard text={props.address}>
+                    <span className="Address">{props.address.substring(0, 10) + "..."}</span>
+                </CopyToClipboard>
             </div>
         </div>
     )

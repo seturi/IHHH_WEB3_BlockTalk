@@ -1,13 +1,44 @@
 import React from "react";
-import { Refresh, Message, Input, Send } from "./Components"
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Message } from "./Components"
+import { ReactComponent as RefImg } from "../images/refresh.svg"
+import { ReactComponent as SendImg } from "../images/send.svg"
 
 export function ChatRoom(props) {
+    function Refresh() {
+        return (
+            <div className="Refresh">
+                <RefImg width={28} height={28} fill="white" />
+            </div>
+        )
+    }
+
+    function Input() {
+        return (
+            <div className="Input">
+                <input type="text" />
+            </div>
+        )
+    }
+
+    function Send() {
+        return (
+            <div className="Send">
+                <SendImg width={40} height={40} color="white" />
+            </div>
+        )
+    }
+
     return (
         <div className="ChatRoom">
             <div className="TopBar">
                 <div className="UserInfo">
-                    <span className="Name">{props.name}</span>
-                    <span className="Address">{props.address}</span>
+                    <CopyToClipboard text={props.name}>
+                        <span className="Name">{props.name}</span>
+                    </CopyToClipboard>
+                    <CopyToClipboard text={props.name}>
+                        <span className="Address">{props.address.substring(0, 10) + "..."}</span>
+                    </CopyToClipboard>
                 </div>
                 <Refresh />
             </div>

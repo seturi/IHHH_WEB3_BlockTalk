@@ -1,9 +1,28 @@
 export const abi = [
     {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "bytes7",
+                "name": "key",
+                "type": "bytes7"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "walletAddress",
+                "type": "address"
+            }
+        ],
+        "name": "KeyGenerated",
+        "type": "event"
+    },
+    {
         "inputs": [
             {
                 "internalType": "address",
-                "name": "friend_key",
+                "name": "friendkey",
                 "type": "address"
             },
             {
@@ -20,8 +39,21 @@ export const abi = [
     {
         "inputs": [
             {
+                "internalType": "string",
+                "name": "key",
+                "type": "string"
+            }
+        ],
+        "name": "addFriendbyCode",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "address",
-                "name": "pubkey",
+                "name": "publickey",
                 "type": "address"
             }
         ],
@@ -51,13 +83,26 @@ export const abi = [
     },
     {
         "inputs": [],
+        "name": "generateKeyString",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
         "name": "getMyFriendList",
         "outputs": [
             {
                 "components": [
                     {
                         "internalType": "address",
-                        "name": "pubkey",
+                        "name": "publickey",
                         "type": "address"
                     },
                     {
@@ -78,7 +123,7 @@ export const abi = [
         "inputs": [
             {
                 "internalType": "address",
-                "name": "pubkey",
+                "name": "publickey",
                 "type": "address"
             }
         ],
@@ -97,7 +142,7 @@ export const abi = [
         "inputs": [
             {
                 "internalType": "address",
-                "name": "friend_key",
+                "name": "friendkey",
                 "type": "address"
             }
         ],
@@ -133,7 +178,7 @@ export const abi = [
         "inputs": [
             {
                 "internalType": "address",
-                "name": "friend_key",
+                "name": "friendkey",
                 "type": "address"
             },
             {
