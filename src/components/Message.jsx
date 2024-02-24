@@ -11,5 +11,5 @@ export function Message(props) {
                 <span className="Time">{props.time}</span>
             </div>
         </div>
-    )
+    );
 }

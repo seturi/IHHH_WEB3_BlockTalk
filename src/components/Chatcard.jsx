@@ -1,6 +1,4 @@
-import React from "react";
-
-export function ChatCard(props) {
+export const ChatCard = (props) => {
     return (
         <div className="ChatCard">
             <div className="User">

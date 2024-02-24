@@ -1,15 +1,13 @@
-import React from "react";
-import LogoImg from "../images/blocktalk_t.png"
 import { useNavigate } from "react-router-dom";
+import LogoImg from "../images/blocktalk_t.png"
 
-
-export default function Login(props) {
+export const Login = (props) => {
     const navigate = useNavigate();
 
     const handleLogin = async () => {
         const loginSuccess = await props.login();
-        if(loginSuccess) {
-            navigate("/main");  // 로그인 성공 시 메인 페이지로 이동
+        if (loginSuccess) {
+            navigate("/main");
         }
     };
 
@@ -23,5 +21,5 @@ export default function Login(props) {
                 <span>Click to Login ...</span>
             </div>
         </div>
-    );
+    )
 }

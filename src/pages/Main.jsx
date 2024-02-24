@@ -1,79 +1,76 @@
-import React, {useState} from "react";
-import { NavBar, SideBar, ChatRoom, Message } from "../components/Components"
+import { useState } from "react";
+import { NavBar, SideBar, ChatRoom } from "../components/Components"
+import CopyToClipboard from "react-copy-to-clipboard";
 
-export default function Main(props) {
-    const [friends, setFriends] = useState(null);
-    const [activeChat, setActiveChat] = useState({ friendname: null, publicKey: null });
-    const [activeChatMessages, setActiveChatMessages] = useState(null);
-    const myContract = props.myContract;
-    const myPublicKey = props.address;
+export const Main = (props) => {
+    const [addModal, setAddModal] = useState(false);
+    const [genModal, setGenModal] = useState(false);
+    const [entModal, setEntModal] = useState(false);
 
-    // TODO: addChat()
-
-    // Fetch chat messages with a friend 
-    async function getMessage( friendsPublicKey ) {
-        let nickname;
-        let messages = [];
-        friends.forEach( ( item ) => {
-        if( item.publicKey === friendsPublicKey )
-            nickname = item.name;
-        });
-        // Get messages
-        const data = await myContract.readMessage( friendsPublicKey );
-        data.forEach( ( item ) => {
-        const time = new Date( 1000 * item[2].toNumber() ).toUTCString();
-        messages.push({ "publicKey": item[0], "text": item[1], "time": time });
-        });
-        setActiveChat({ friendname: nickname, publicKey: friendsPublicKey });
-        setActiveChatMessages( messages );
-    }
-
-    // Sends messsage to an user 
-    async function sendMessage( data ) {
-        if( !( activeChat && activeChat.publicKey ) ) return;
-        const recieverAddress = activeChat.publicKey;
-        await myContract.sendMessage( recieverAddress, data );
-    } 
-
-    // This executes every time page renders and when myPublicKey or myContract changes
-    // useEffect( () => {
-    //     async function loadFriends() {
-    //     let friendList = [];
-    //     // Get Friends
-    //     try {
-    //         const data = await myContract.getMyFriendList();
-    //         data.forEach( ( item ) => {
-    //         friendList.push({ "publicKey": item[0], "name": item[1] });
-    //         })
-    //     } catch(err) {
-    //         friendList = null;  
-    //     }
-    //     setFriends( friendList );
-    //     }
-    //     loadFriends();
-    // }, [myPublicKey, myContract]);
-
-    // Makes Cards for each Message
-    const Messages = activeChatMessages ? activeChatMessages.map( ( message ) => {
-        let sender = activeChat.friendname;
-        let isMine = false;
-        if( message.publicKey === myPublicKey ) {
-            sender = "";
-            isMine = true;
-        }
+    const AddModal = () => {
         return (
-            <Message name={sender} text={message.text} time={ message.time } isMine={isMine} />
-        );
-    }) : null;
+            <div className="AddModal">
+                <div className="Body">
+                    <span className="Title">Add new chat</span>
+                    <div className="Select">
+                        <button className="Generate" onClick={() => { setAddModal(false); setGenModal(true); }}>Generate code</button>
+                        <button className="Enter" onClick={() => { setAddModal(false); setEntModal(true); }}>Enter code</button>
+                    </div>
+                    <div className="Close">
+                        <button onClick={() => setAddModal(false)}>Close</button>
+                    </div>
+                </div>
+            </div >
+        )
+    };
+
+    const GenModal = (props) => {
+        return (
+            <div className="GenModal">
+                <div className="Body">
+                    <span className="Title">Generate code</span>
+                    <div className="Return">
+                        <CopyToClipboard text={props.code}>
+                            <span className="Code">{props.code}</span>
+                        </CopyToClipboard>
+                    </div>
+                    <div className="Select">
+                        <button onClick={() => { setAddModal(true); setGenModal(false); }}>back</button>
+                        <button onClick={() => setGenModal(false)}>Close</button>
+                    </div>
+                </div>
+            </div >
+        )
+    };
+
+    const EntModal = () => {
+        return (
+            <div className="EntModal">
+                <div className="Body">
+                    <span className="Title">Enter code</span>
+                    <div className="Input">
+                        <input type="text" />
+                    </div>
+                    <div className="Select">
+                        <button onClick={() => { setAddModal(true); setEntModal(false); }}>back</button>
+                        <button onClick={() => setEntModal(false)}>Close</button>
+                    </div>
+                </div >
+            </div>
+        )
+    };
 
     return (
         <div className="Main">
             <div className="Container">
                 <NavBar name={props.name} address={props.address} />
                 <div className="Contents">
-                    <SideBar />
+                    <SideBar setAddModal={setAddModal} />
                     <ChatRoom name="name1" address="0x1" />
                 </div>
+                {addModal ? <AddModal /> : null}
+                {genModal ? <GenModal /> : null}
+                {entModal ? <EntModal /> : null}
             </div>
         </div>
     )

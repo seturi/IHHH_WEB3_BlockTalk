@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ethers } from "ethers";
-import Login from "./pages/Login";
-import Main from "./pages/Main";
+import { Login, Main } from "./pages/Pages";
 import { abi } from "./abi";
 import "./style.css"
 
 // TODO: 로그인 페이지 내에서 컨트랙트 배포
 const CONTRACT_ADDRESS = "0xB746e393d3687C12A5F2F395f2583aCF02F563AF";
 
-function App(props) {
-	const [myName, setMyName] = useState(null);
-	const [myPublicKey, setMyPublicKey] = useState(null);
-	const [myContract, setMyContract] = useState(null);
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+const App = (props) => {
+  const [myName, setMyName] = useState(null);
+  const [myPublicKey, setMyPublicKey] = useState(null);
+  const [myContract, setMyContract] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 	const contractABI = abi;
 	let provider;

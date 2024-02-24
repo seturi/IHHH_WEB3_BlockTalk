@@ -1,8 +1,7 @@
-import React from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import LogoImg from "../images/blocktalk_t.png"
 
-export function NavBar(props) {
+export const NavBar = (props) => {
     return (
         <div className="NavBar">
             <div className="Logo">

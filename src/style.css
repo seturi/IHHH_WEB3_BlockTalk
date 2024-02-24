@@ -86,10 +86,10 @@
 
             .Logo {
                 display: flex;
+                gap: 4px;
 
                 img {
                     height: 40px;
-                    margin-right: 7px;
                 }
 
                 span {
@@ -124,7 +124,7 @@
                 }
 
                 .Address {
-                    color: white;
+                    color: whitesmoke;
                     font-family: Amiko, sans-serif;
                     font-size: 12px;
                     font-style: normal;
@@ -283,7 +283,7 @@
                     }
 
                     .Address {
-                        color: white;
+                        color: whitesmoke;
                         font-family: Amiko, sans-serif;
                         font-size: 12px;
                         font-style: normal;
@@ -390,6 +390,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+                gap: 12px;
 
                 .Input {
                     width: 100%;
@@ -398,7 +399,6 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    margin-right: 12px;
 
                     input {
                         width: 100%;
@@ -427,6 +427,237 @@
                     &:active {
                         path {
                             fill: var(--active);
+                        }
+                    }
+                }
+            }
+        }
+
+        .AddModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--shadow);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .Body {
+                height: 200px;
+                width: 300px;
+                padding: 12px;
+                background-color: var(--blue);
+                backdrop-filter: var(--shadow);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .Title {
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+
+                .Select {
+                    display: flex;
+                    justify-content: center;
+                    gap: 30px;
+
+                    .Generate {
+                        cursor: pointer;
+                    }
+
+                    .Enter {
+                        cursor: pointer;
+                    }
+                }
+
+                .Close {
+                    display: flex;
+                    justify-content: right;
+
+                    button {
+                        width: 50px;
+                        height: 30px;
+                        border: none;
+                        color: var(--black);
+                        font-family: Amiko, sans-serif;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: var(--gray);
+                        }
+
+                        &:active {
+                            background-color: var(--active);
+                        }
+                    }
+                }
+            }
+        }
+
+        .GenModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--shadow);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .Body {
+                height: 200px;
+                width: 300px;
+                padding: 12px;
+                background-color: var(--blue);
+                backdrop-filter: var(--shadow);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .Title {
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+
+                .Return {
+                    .Code {
+                        color: white;
+                        font-family: Amiko, sans-serif;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                        cursor: pointer;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+
+                        &:active {
+                            color: var(--active);
+                        }
+                    }
+                }
+
+                .Select {
+                    display: flex;
+                    justify-content: right;
+                    gap: 12px;
+
+                    button {
+                        width: 50px;
+                        height: 30px;
+                        border: none;
+                        color: var(--black);
+                        font-family: Amiko, sans-serif;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: var(--gray);
+                        }
+
+                        &:active {
+                            background-color: var(--active);
+                        }
+                    }
+                }
+            }
+        }
+
+        .EntModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--shadow);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .Body {
+                height: 200px;
+                width: 300px;
+                padding: 12px;
+                background-color: var(--blue);
+                backdrop-filter: var(--shadow);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .Title {
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+
+                .Input {
+                    width: 100%;
+                    height: 40px;
+                    background-color: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    input {
+                        width: 100%;
+                        border: none;
+                        outline: none;
+                        color: var(--black);
+                        font-family: Amiko, sans-serif;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                    }
+                }
+
+                .Select {
+                    display: flex;
+                    justify-content: right;
+                    gap: 12px;
+
+                    button {
+                        width: 50px;
+                        height: 30px;
+                        border: none;
+                        color: var(--black);
+                        font-family: Amiko, sans-serif;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: var(--gray);
+                        }
+
+                        &:active {
+                            background-color: var(--active);
                         }
                     }
                 }
