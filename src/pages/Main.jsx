@@ -7,6 +7,23 @@ export const Main = (props) => {
     const [genModal, setGenModal] = useState(false);
     const [entModal, setEntModal] = useState(false);
 
+    async function generateKey() {
+        const tx = await props.myContract.generateKeyString();
+        const receipt = await tx.wait();
+        const key = receipt.events[0].args.at(0);
+        console.log(hexToAscii(key));
+    }
+
+    function hexToAscii(hexStr) {
+        let asciiStr = '';
+        for (let i = 0; i < hexStr.length; i += 2) {
+          const hexSegment = hexStr.substr(i, 2);
+          const asciiChar = String.fromCharCode(parseInt(hexSegment, 16));
+          asciiStr += asciiChar;
+        }
+        return asciiStr;
+      }
+
     const AddModal = () => {
         return (
             <div className="AddModal">
@@ -30,6 +47,7 @@ export const Main = (props) => {
                 <div className="Body">
                     <span className="Title">Generate code</span>
                     <div className="Return">
+                        <button onClick={generateKey}>generate</button>
                         <CopyToClipboard text={props.code}>
                             <span className="Code">{props.code}</span>
                         </CopyToClipboard>

@@ -9,10 +9,10 @@ import "./style.css"
 const CONTRACT_ADDRESS = "0xB746e393d3687C12A5F2F395f2583aCF02F563AF";
 
 const App = (props) => {
-  const [myName, setMyName] = useState(null);
-  const [myPublicKey, setMyPublicKey] = useState(null);
-  const [myContract, setMyContract] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [myName, setMyName] = useState(null);
+	const [myPublicKey, setMyPublicKey] = useState(null);
+	const [myContract, setMyContract] = useState(null);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 	const contractABI = abi;
 	let provider;
@@ -44,7 +44,7 @@ const App = (props) => {
 			setMyPublicKey(address);
 			setIsLoggedIn(true);
 		} catch (err) {
-				alert("CONTRACT_ADDRESS not set properly!");
+			alert("CONTRACT_ADDRESS not set properly!");
 		}
 		} else {
 			alert("Couldn't connect to MetaMask");
@@ -68,7 +68,7 @@ const App = (props) => {
 				element={isLoggedIn ? <Navigate to="/main" /> 
 				: <Login login={async () => login()} />} />
 				<Route path="/main"
-				element={isLoggedIn ? <Main name={myName} address={myPublicKey} myContract={myContract}/>
+				element={isLoggedIn ? <Main name={myName} address={myPublicKey} myContract={myContract} />
 				: <Navigate to="/" />} />
 			</Routes>
 		</BrowserRouter>
