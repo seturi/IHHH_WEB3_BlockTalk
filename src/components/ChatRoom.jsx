@@ -1,33 +1,32 @@
-import React from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Message } from "./Components"
 import { ReactComponent as RefImg } from "../images/refresh.svg"
 import { ReactComponent as SendImg } from "../images/send.svg"
 
-export function ChatRoom(props) {
-    function Refresh() {
+export const ChatRoom = (props) => {
+    const Refresh = () => {
         return (
             <div className="Refresh">
                 <RefImg width={28} height={28} fill="white" />
             </div>
         )
-    }
+    };
 
-    function Input() {
+    const Input = () => {
         return (
             <div className="Input">
                 <input type="text" />
             </div>
         )
-    }
+    };
 
-    function Send() {
+    const Send = () => {
         return (
             <div className="Send">
                 <SendImg width={40} height={40} color="white" />
             </div>
         )
-    }
+    };
 
     return (
         <div className="ChatRoom">
@@ -36,7 +35,7 @@ export function ChatRoom(props) {
                     <CopyToClipboard text={props.name}>
                         <span className="Name">{props.name}</span>
                     </CopyToClipboard>
-                    <CopyToClipboard text={props.name}>
+                    <CopyToClipboard text={props.address}>
                         <span className="Address">{props.address.substring(0, 10) + "..."}</span>
                     </CopyToClipboard>
                 </div>

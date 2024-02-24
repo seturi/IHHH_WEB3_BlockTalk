@@ -1,6 +1,4 @@
-import React from "react";
-
-export function Message(props) {
+export const Message = (props) => {
     return (
         <div className="Message">
             <span className="Name">{props.name}</span>
@@ -9,5 +7,5 @@ export function Message(props) {
                 <span className="Time">{props.time}</span>
             </div>
         </div>
-    )
+    );
 }

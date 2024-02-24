@@ -1,15 +1,14 @@
-import React from "react";
 import { ChatCard } from "./Components";
 import { ReactComponent as AddImg } from "../images/add.svg"
 
-export function SideBar() {
-    function AddNewChat(props) {
+export const SideBar = ({ setAddModal }) => {
+    const AddNewChat = () => {
         return (
-            <div className="AddNewChat">
+            <div className="AddNewChat" onClick={() => setAddModal(true)}>
                 <AddImg width={40} height={40} fill="white" />
             </div>
-        );
-    }
+        )
+    };
 
     return (
         <div className="SideBar">

@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ethers } from "ethers";
-import Login from "./pages/Login";
-import Main from "./pages/Main";
+import { Login, Main } from "./pages/Pages";
 import { abi } from "./abi";
 import "./style.css"
 
 // TODO: 로그인 페이지 내에서 컨트랙트 배포
 const CONTRACT_ADDRESS = "0x35bdfc8c7675c450721add735d04645f0eb332f2";
 
-function App(props) {
+const App = (props) => {
   const [myName, setMyName] = useState(null);
   const [myPublicKey, setMyPublicKey] = useState(null);
   const [myContract, setMyContract] = useState(null);
@@ -48,7 +47,7 @@ function App(props) {
       alert("Couldn't connect to MetaMask");
     }
     return isLoggedIn;
-  }
+  };
 
   async function connectToMetamask() {
     try {
@@ -57,7 +56,7 @@ function App(props) {
     } catch (err) {
       return false;
     }
-  }
+  };
 
   return (
     <BrowserRouter>
@@ -68,7 +67,7 @@ function App(props) {
           element={isLoggedIn ? <Main name={myName} address={myPublicKey} /> : <Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
 export default App
