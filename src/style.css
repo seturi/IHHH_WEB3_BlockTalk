@@ -324,7 +324,7 @@
                 flex-direction: column;
                 background-color: var(--gray);
                 padding: 12px;
-                overflow: scroll;
+                overflow-y: scroll;
                 gap: 8px;
 
                 .Message {
@@ -345,7 +345,7 @@
 
                         .Text {
                             background-color: white;
-                            max-width: 400px;
+                            max-width: 350px;
                             padding: 8px;
                             margin-right: 4px;
                             color: black;
@@ -354,6 +354,8 @@
                             font-style: normal;
                             font-weight: 400;
                             line-height: normal;
+                            word-break: break-all;
+                            word-wrap: break-word;
                         }
 
                         .Time {
@@ -364,6 +366,20 @@
                             font-style: normal;
                             font-weight: 400;
                             line-height: normal;
+                        }
+                    }
+                }
+                .MyMessage {
+                    align-items: flex-end;
+
+                    .Contents  {
+                        .Text {
+                            background-color: lightblue;
+                            margin-right: 0px;
+                            margin-left: 4px;
+                        }
+                        .Time {
+                            order: -1;
                         }
                     }
                 }

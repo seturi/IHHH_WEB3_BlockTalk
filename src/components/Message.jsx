@@ -1,8 +1,10 @@
 import React from "react";
 
 export function Message(props) {
+    const messageSender = props.isMine ? "Message MyMessage" : "Message";
+
     return (
-        <div className="Message">
+        <div className={messageSender}>
             <span className="Name">{props.name}</span>
             <div className="Contents">
                 <span className="Text">{props.text}</span>
