@@ -22,7 +22,7 @@ const App = (props) => {
   async function login() {
     let res = await connectToMetamask();
 
-    if (res === true) {
+    if (res) {
       provider = new ethers.providers.Web3Provider(window.ethereum);
       setMyProvider(provider);
       signer = provider.getSigner();
