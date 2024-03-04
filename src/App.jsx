@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ethers } from "ethers";
+import { useDispatch } from "react-redux";
 import { Login, Main } from "./pages/Pages";
 import { abi } from "./abi";
-import "./style.css"
+import { addFriend } from "./redux/states/Friends";
+import "./styles/style.css";
+import "./styles/animation.css";
 
 // TODO: 로그인 페이지 내에서 컨트랙트 배포
 const CONTRACT_ADDRESS = "0x35bdfc8c7675c450721add735d04645f0eb332f2";
 
-const App = (props) => {
+const App = () => {
+  const dispatch = useDispatch();
   const [myName, setMyName] = useState(null);
   const [myPublicKey, setMyPublicKey] = useState(null);
   const [myProvider, setMyProvider] = useState(null);
@@ -48,7 +52,7 @@ const App = (props) => {
       alert("Couldn't connect to MetaMask");
     }
     return isLoggedIn;
-  }
+  };
 
   async function connectToMetamask() {
     try {
@@ -57,7 +61,25 @@ const App = (props) => {
     } catch (err) {
       return false;
     }
-  }
+  };
+
+  useEffect(() => {
+    async function loadFriends() {
+      let friendList = [];
+
+      try {
+        const data = await myContract.getMyFriendList();
+        data.forEach((item) => {
+          friendList.push({ "name": item[0], "publicKey": item[1] });
+        })
+      } catch (err) {
+        friendList = null;
+      }
+      dispatch(addFriend(friendList));
+    };
+
+    loadFriends();
+  }, [myPublicKey, myContract, dispatch]);
 
   return (
     <BrowserRouter>
@@ -66,11 +88,15 @@ const App = (props) => {
           element={isLoggedIn ? <Navigate to="/main" />
             : <Login login={async () => login()} />} />
         <Route path="/main"
-          element={isLoggedIn ? <Main name={myName} address={myPublicKey} myProvider={myProvider} myContract={myContract} />
-            : <Navigate to="/" />} />
+          element={isLoggedIn ? <Main
+            name={myName}
+            address={myPublicKey}
+            myProvider={myProvider}
+            myContract={myContract}
+          /> : <Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
-export default App
+export default App;

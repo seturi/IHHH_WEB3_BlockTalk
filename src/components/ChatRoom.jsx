@@ -1,6 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Message } from "./Components"
+import { open, toastType } from "../redux/states/Toast";
 import { ReactComponent as RefImg } from "../images/refresh.svg"
 import { ReactComponent as SendImg } from "../images/send.svg"
 
@@ -15,29 +17,34 @@ function Refresh({ onRefresh }) {
 function Input({ inputText, handleInputChange }) {
     return (
         <div className="Input">
-            <input 
-                type="text" 
-                value={inputText} 
-                onChange={handleInputChange} 
+            <input
+                type="text"
+                value={inputText}
+                onChange={handleInputChange}
             />
         </div>
     );
 }
 
-function Send({ handleSend }) {
-    return (
-        <div className="Send" onClick={handleSend}>
-            <SendImg width={40} height={40} color="white"/>
-        </div>
-    );
-}
-
-
 export function ChatRoom(props) {
+    const dispatch = useDispatch();
     const [inputText, setInputText] = useState("");
     const [messages, setMessages] = useState([]);
 
     const handleInputChange = (event) => setInputText(event.target.value);
+
+    const Send = () => {
+        return (
+            <div className="Send">
+                <SendImg
+                    width={40}
+                    height={40}
+                    color="white"
+                    onClick={handleSend}
+                />
+            </div>
+        )
+    };
 
     const handleSend = () => {
         // TODO: 메시지 전송
@@ -46,6 +53,14 @@ export function ChatRoom(props) {
         setInputText("");
     };
 
+    const openToast = (type, message) => {
+        const payload = {
+            type: type,
+            message: message
+        };
+
+        dispatch(open(payload));
+    };
     /* TODO: 새로고침 이벤트 핸들링
     const handleRefresh = async () => {
         
@@ -56,10 +71,16 @@ export function ChatRoom(props) {
         <div className="ChatRoom">
             <div className="TopBar">
                 <div className="UserInfo">
-                    <CopyToClipboard text={props.name}>
+                    <CopyToClipboard
+                        text={props.name}
+                        onCopy={() => openToast(toastType.SUCC, "Copied to clipboard")}
+                    >
                         <span className="Name">{props.name}</span>
-                    </CopyToClipboard> 
-                    <CopyToClipboard text={props.address}>
+                    </CopyToClipboard>
+                    <CopyToClipboard
+                        text={props.address}
+                        onCopy={() => openToast(toastType.SUCC, "Copied to clipboard")}
+                    >
                         <span className="Address">{props.address.substring(0, 10) + "..."}</span>
                     </CopyToClipboard>
                 </div>
@@ -74,7 +95,7 @@ export function ChatRoom(props) {
             </div>
             <div className="Bottom">
                 <Input inputText={inputText} handleInputChange={handleInputChange} />
-                <Send handleSend={handleSend} />
+                <Send />
             </div>
         </div>
     )
