@@ -389,6 +389,14 @@
                 }
             }
 
+            .Picture {
+                height: 436px;
+                background-image: url("../images/cat.jpg");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+            }
+
             .Bottom {
                 height: 60px;
                 display: flex;
@@ -408,6 +416,8 @@
                         width: 100%;
                         border: none;
                         outline: none;
+                        margin-left: 4px;
+                        margin-right: 4px;
                         color: var(--black);
                         font-family: Amiko, sans-serif;
                         font-size: 16px;
@@ -693,6 +703,7 @@
                     width: 100%;
                     border: none;
                     outline: none;
+                    margin-left: 4px;
                     color: var(--black);
                     font-family: Amiko, sans-serif;
                     font-size: 16px;

@@ -3,7 +3,7 @@ import { ChatCard } from "./Components";
 import { ReactComponent as AddImg } from "../images/add.svg"
 import { setAddModal } from "../redux/states/Modals";
 
-export const SideBar = () => {
+export const SideBar = ({ friends }) => {
     const dispatch = useDispatch();
 
     const AddNewChat = () => {
@@ -23,11 +23,13 @@ export const SideBar = () => {
         <div className="SideBar">
             <div className="TopBar">Chats</div>
             <div className="ChatCardPanel">
-                <ChatCard name="name1" address="0x1" />
+                {friends.map((friend, index) => (
+                    <ChatCard key={index} index={index} name={friend.name} address={friend.publicKey} />
+                ))}
             </div>
             <div className="Bottom">
                 <AddNewChat />
             </div>
         </div>
     )
-}
+};

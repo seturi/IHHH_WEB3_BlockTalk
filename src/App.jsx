@@ -1,10 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ethers } from "ethers";
-import { useDispatch } from "react-redux";
 import { Login, Main } from "./pages/Pages";
 import { abi } from "./abi";
-import { addFriend } from "./redux/states/Friends";
 import "./styles/style.css";
 import "./styles/animation.css";
 
@@ -12,7 +10,6 @@ import "./styles/animation.css";
 const CONTRACT_ADDRESS = "0x35bdfc8c7675c450721add735d04645f0eb332f2";
 
 const App = () => {
-  const dispatch = useDispatch();
   const [myName, setMyName] = useState(null);
   const [myPublicKey, setMyPublicKey] = useState(null);
   const [myProvider, setMyProvider] = useState(null);
@@ -56,30 +53,12 @@ const App = () => {
 
   async function connectToMetamask() {
     try {
-      await window.ethereum.enable();
+      await window.ethereum.request({ method: "eth_requestAccounts" });
       return true;
     } catch (err) {
       return false;
     }
   };
-
-  useEffect(() => {
-    async function loadFriends() {
-      let friendList = [];
-
-      try {
-        const data = await myContract.getMyFriendList();
-        data.forEach((item) => {
-          friendList.push({ "name": item[0], "publicKey": item[1] });
-        })
-      } catch (err) {
-        friendList = null;
-      }
-      dispatch(addFriend(friendList));
-    };
-
-    loadFriends();
-  }, [myPublicKey, myContract, dispatch]);
 
   return (
     <BrowserRouter>

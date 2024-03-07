@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { utils } from "ethers";
 import { useDispatch, useSelector } from "react-redux";
 import { NavBar, SideBar, Modals, Toast, ChatRoom } from "../components/Components"
@@ -7,8 +7,10 @@ import { open, toastType } from "../redux/states/Toast";
 
 export const Main = (props) => {
     const dispatch = useDispatch();
+    const index = useSelector(state => state.chat.index);
     const genModal = useSelector(state => state.modal.genModal);
     const toast = useSelector(state => state.toast.isOpen);
+    const [friends, setFriends] = useState([]);
     const [load, setLoad] = useState(false);
     const codeRef = useRef({
         code: null,
@@ -45,7 +47,8 @@ export const Main = (props) => {
         setLoad(true);
 
         try {
-            await props.myContract.addFriendbyCode(code);
+            const tx = await props.myContract.addFriendbyCode(code);
+            await tx.wait();
             setLoad(false);
             openToast(toastType.SUCC, "Friend added successfully")
         } catch (err) {
@@ -62,6 +65,24 @@ export const Main = (props) => {
 
         dispatch(open(payload));
     };
+
+    useEffect(() => {
+        async function loadFriends() {
+            let friendList = [];
+
+            try {
+                const data = await props.myContract.getMyFriendList();
+                data.forEach((item) => {
+                    friendList.push({ "publicKey": item[0], "name": item[1] });
+                })
+            } catch (err) {
+                friendList = null;
+            }
+            setFriends(friendList);
+        };
+
+        loadFriends();
+    }, [props.myProvider, props.myContract]);
 
     useEffect(() => {
         let requestId;
@@ -102,8 +123,11 @@ export const Main = (props) => {
             <div className="Container">
                 <NavBar name={props.name} address={props.address} />
                 <div className="Contents">
-                    <SideBar />
-                    <ChatRoom name="name1" address="0x1" />
+                    <SideBar friends={friends} />
+                    <ChatRoom
+                        name={(index !== null) ? friends[index].name : null}
+                        address={(index !== null) ? friends[index].publicKey : null}
+                    />
                 </div>
                 {toast && <Toast />}
             </div>
