@@ -1,0 +1,31 @@
+@keyframes slideIn {
+    from {
+        transform: translate(-50%, -60%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+
+    to {
+        transform: translate(-50%, -60%);
+        opacity: 0;
+    }
+}
+
+.openAnimation {
+    animation: slideIn 0.2s ease-in-out forwards;
+}
+
+.closeAnimation {
+    animation: slideOut 0.2s ease-in-out forwards;
+}

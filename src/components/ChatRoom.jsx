@@ -1,6 +1,8 @@
-import React, {useState, useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Message } from "./Components"
+import { open, toastType } from "../redux/states/Toast";
 import { ReactComponent as RefImg } from "../images/refresh.svg"
 import { ReactComponent as SendImg } from "../images/send.svg"
 
@@ -18,28 +20,33 @@ function Input({ inputText, handleInputChange, handleEnter}) {
             <input 
                 type="text" 
                 value={inputText} 
-                onChange={handleInputChange} 
-                onKeyDown={handleEnter}
+                onChange={handleInputChange}
+                onKeyDown={handleEnter} 
             />
         </div>
     );
 }
 
-function Send({ handleSend }) {
-    return (
-        <div className="Send" onClick={handleSend}>
-            <SendImg width={40} height={40} color="white"/>
-        </div>
-    );
-}
-
-
 export function ChatRoom(props) {
+    const dispatch = useDispatch();
     const [inputText, setInputText] = useState("");
     const [messages, setMessages] = useState([]);
     const messagePanelRef = useRef(null);
 
     const handleInputChange = (event) => setInputText(event.target.value);
+
+    const Send = () => {
+        return (
+            <div className="Send">
+                <SendImg
+                    width={40}
+                    height={40}
+                    color="white"
+                    onClick={handleSend}
+                />
+            </div>
+        )
+    };
 
     const handleSend = () => {
         if (!inputText.trim()) return;
@@ -48,14 +55,24 @@ export function ChatRoom(props) {
             name: "",
             text: inputText, 
             time: new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }), 
-            isMine: true, };
+            isMine: true, 
+        };
         setMessages([...messages, newMessage]);
         setInputText("");
     };
 
+    const openToast = (type, message) => {
+        const payload = {
+            type: type,
+            message: message
+        };
+
+        dispatch(open(payload));
+    };
+
     const handleEnter = (event) => {
         if (event.key === 'Enter') {
-          handleSend();
+            handleSend();
         }
     };
 
@@ -80,10 +97,16 @@ export function ChatRoom(props) {
         <div className="ChatRoom">
             <div className="TopBar">
                 <div className="UserInfo">
-                    <CopyToClipboard text={props.name}>
+                    <CopyToClipboard
+                        text={props.name}
+                        onCopy={() => openToast(toastType.SUCC, "Copied to clipboard")}
+                    >
                         <span className="Name">{props.name}</span>
-                    </CopyToClipboard> 
-                    <CopyToClipboard text={props.address}>
+                    </CopyToClipboard>
+                    <CopyToClipboard
+                        text={props.address}
+                        onCopy={() => openToast(toastType.SUCC, "Copied to clipboard")}
+                    >
                         <span className="Address">{props.address.substring(0, 10) + "..."}</span>
                     </CopyToClipboard>
                 </div>
@@ -100,7 +123,7 @@ export function ChatRoom(props) {
                             key={index}
                             name={msg.name} 
                             text={msg.text} 
-                            time={showTime ? msg.time: undefined} 
+                            time={showTime ? msg.time : undefined} 
                             isMine={msg.isMine} 
                         />
                     );

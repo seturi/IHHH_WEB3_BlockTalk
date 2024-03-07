@@ -1,150 +1,119 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { utils } from "ethers";
-import { PulseLoader } from "react-spinners";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { NavBar, SideBar, ChatRoom } from "../components/Components"
+import { useDispatch, useSelector } from "react-redux";
+import { NavBar, SideBar, Modals, Toast, ChatRoom } from "../components/Components"
+import { setAddModal, setGenModal } from "../redux/states/Modals";
+import { open, toastType } from "../redux/states/Toast";
 
 export const Main = (props) => {
-    const [addModal, setAddModal] = useState(false);
-    const [genModal, setGenModal] = useState(false);
-    const [entModal, setEntModal] = useState(false);
-    const [code, setCode] = useState(null);
-    const [timeStamp, setTimeStamp] = useState(0);
-    const [validTime, setValidTime] = useState(600);
-    const [minute, setMinute] = useState("10");
-    const [second, setSecond] = useState("00");
+    const dispatch = useDispatch();
+    const genModal = useSelector(state => state.modal.genModal);
+    const toast = useSelector(state => state.toast.isOpen);
+    const [load, setLoad] = useState(false);
+    const codeRef = useRef({
+        code: null,
+        timeStamp: 0
+    });
+    const validTimeRef = useRef({
+        time: 600,
+        minute: "10",
+        second: "00"
+    });
 
     const generateCode = async () => {
-        if (!code) {
+        if (!codeRef.current.code) {
             try {
                 const tx = await props.myContract.generateKeyString();
                 const receipt = await tx.wait();
-                console.log(receipt);
                 const key = receipt.events[0].args.key;
                 const code = utils.toUtf8String(key);
-                setCode(code);
+                codeRef.current.code = code;
                 const blockNumber = await props.myProvider.getBlockNumber();
                 const block = await props.myProvider.getBlock(blockNumber);
                 const timeStamp = block.timestamp;
-                setTimeStamp(timeStamp);
+                codeRef.current.timeStamp = timeStamp;
+                openToast(toastType.SUCC, "The code has generated");
             } catch (err) {
-                alert("User rejected transation");
-                setAddModal(true);
-                setGenModal(false);
+                dispatch(setAddModal(true));
+                dispatch(setGenModal(false));
+                openToast(toastType.FAIL, "User denied transation signature");
             }
         }
-    }
+    };
 
-    const handleGenModal = () => {
-        setAddModal(false);
-        setGenModal(true);
-        generateCode();
-    }
+    const addFriend = async (code) => {
+        setLoad(true);
+
+        try {
+            await props.myContract.addFriendbyCode(code);
+            setLoad(false);
+            openToast(toastType.SUCC, "Friend added successfully")
+        } catch (err) {
+            openToast(toastType.FAIL, "Invalid code");
+            setLoad(false);
+        }
+    };
+
+    const openToast = (type, message) => {
+        const payload = {
+            type: type,
+            message: message
+        };
+
+        dispatch(open(payload));
+    };
 
     useEffect(() => {
-        if (timeStamp) {
-            const interval = setInterval(() => {
-                const currentTime = Math.floor(Date.now() / 1000);
-                const elapsedTime = currentTime - timeStamp;
-                setValidTime(600 - elapsedTime);
-                setMinute(Math.floor(validTime / 60).toString().padStart(2, "0"));
-                setSecond((validTime % 60).toString().padStart(2, "0"));
-                console.log(minute, second);
+        let requestId;
 
-                if (validTime <= 0) {
-                    if (genModal) {
-                        setAddModal(true);
-                        setGenModal(false);
-                        alert("Code has been expired");
-                    }
+        const checkValidTime = () => {
+            const currentTime = Math.floor(Date.now() / 1000);
+            const elapsedTime = currentTime - codeRef.current.timeStamp;
+            validTimeRef.current.time = 600 - elapsedTime;
+            validTimeRef.current.minute = Math.floor(validTimeRef.current.time / 60).toString().padStart(2, "0");
+            validTimeRef.current.second = (validTimeRef.current.time % 60).toString().padStart(2, "0");
 
-                    clearInterval(interval);
-                    setCode(null);
-                    setTimeStamp(0);
-                };
-            }, 1000);
+            if (validTimeRef.current.time <= 0) {
+                if (genModal) {
+                    dispatch(setAddModal(true));
+                    dispatch(setGenModal(false));
+                }
 
-            return () => {
-                clearInterval(interval);
-            };
-        }
+                cancelAnimationFrame(requestId);
+                codeRef.current.code = null;
+                codeRef.current.timeStamp = 0;
+                openToast(toastType.INFO, "The code has expired");
+            } else {
+                requestId = requestAnimationFrame(checkValidTime);
+            }
+        };
+
+        if (codeRef.current.timeStamp) {
+            requestId = requestAnimationFrame(checkValidTime);
+        };
+
+        return () => {
+            cancelAnimationFrame(requestId);
+        };
     });
-
-    const AddModal = () => {
-        return (
-            <div className="AddModal">
-                <div className="Body">
-                    <span className="Title">Add new chat</span>
-                    <div className="Select">
-                        <button className="Generate" onClick={handleGenModal}>Generate code</button>
-                        <button className="Enter" onClick={() => { setAddModal(false); setEntModal(true); }}>Enter code</button>
-                    </div>
-                    <div className="Close">
-                        <button onClick={() => setAddModal(false)}>Close</button>
-                    </div>
-                </div>
-            </div >
-        )
-    };
-
-    const GenModal = () => {
-        return (
-            <div className="GenModal">
-                <div className="Body">
-                    <span className="Title">Generate code</span>
-                    {(code) ?
-                        <>
-                            <div className="Return">
-                                <CopyToClipboard text={code}>
-                                    <span className="Code">{code}</span>
-                                </CopyToClipboard>
-                                <span className="Timer">{minute}:{second}</span>
-                            </div>
-                            <div className="Select">
-                                <button onClick={() => { setAddModal(true); setGenModal(false); }}>back</button>
-                                <button onClick={() => setGenModal(false)}>Close</button>
-                            </div>
-                        </> : <>
-                            <div className="Loading">
-                                <PulseLoader color="white" />
-                            </div>
-                            <div className="bottom"></div>
-                        </>
-                    }
-                </div>
-            </div >
-        )
-    };
-
-    const EntModal = () => {
-        return (
-            <div className="EntModal">
-                <div className="Body">
-                    <span className="Title">Enter code</span>
-                    <div className="Input">
-                        <input type="text" />
-                    </div>
-                    <div className="Select">
-                        <button onClick={() => { setAddModal(true); setEntModal(false); }}>back</button>
-                        <button onClick={() => setEntModal(false)}>Close</button>
-                    </div>
-                </div >
-            </div>
-        )
-    };
 
     return (
         <div className="Main">
             <div className="Container">
                 <NavBar name={props.name} address={props.address} />
                 <div className="Contents">
-                    <SideBar setAddModal={setAddModal} />
+                    <SideBar />
                     <ChatRoom name="name1" address="0x1" />
                 </div>
-                {addModal ? <AddModal /> : null}
-                {genModal ? <GenModal /> : null}
-                {entModal ? <EntModal /> : null}
+                {toast && <Toast />}
             </div>
+            <Modals
+                codeRef={codeRef}
+                validTimeRef={validTimeRef}
+                generateCode={generateCode}
+                addFriend={addFriend}
+                load={load}
+            />
         </div>
     )
 }
