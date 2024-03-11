@@ -22,11 +22,13 @@ const Refresh = ({ handleRefresh }) => {
     )
 };
 
-const Input = ({ inputText, handleInputChange, handleEnter, setRowHeight }) => {
+const Input = ({ inputText, handleInputChange, handleEnter, inputRef, setRowHeight }) => {
     return (
         <div className="Input">
             <TextareaAutosize
+                ref={inputRef}
                 cacheMeasurements
+                autoFocus
                 maxRows={5}
                 onHeightChange={(rowHeight) => setRowHeight(rowHeight)}
                 spellCheck={false}
@@ -44,6 +46,7 @@ export const ChatRoom = ({ name, address }) => {
     const [inputText, setInputText] = useState("");
     const [messages, setMessages] = useState([]);
     const [rowHeight, setRowHeight] = useState();
+    const inputRef = useRef();
     const messagePanelRef = useRef();
 
     const getMessages = async () => {
@@ -70,6 +73,7 @@ export const ChatRoom = ({ name, address }) => {
         };
         setMessages([...messages, newMessage]);
         setInputText("");
+        inputRef.current.focus();
     };
 
     const handleEnter = (event) => {
@@ -166,6 +170,7 @@ export const ChatRoom = ({ name, address }) => {
                             inputText={inputText}
                             handleInputChange={handleInputChange}
                             handleEnter={handleEnter}
+                            inputRef={inputRef}
                             setRowHeight={setRowHeight}
                         />
                         <Send handleSend={handleSend} />
