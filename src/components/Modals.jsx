@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useLayoutEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PulseLoader } from "react-spinners";
 import CopyToClipboard from "react-copy-to-clipboard";
@@ -123,9 +123,24 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load })
         )
     };
 
+    const Input = ({ code, handleChange, submit }) => {
+        return (
+            <div className="Input">
+                <input
+                    autoFocus
+                    type="text"
+                    spellCheck={false}
+                    maxLength={7}
+                    value={code}
+                    onChange={handleChange}
+                />
+                <button onClick={submit} disabled={code.length < 7}>submit</button>
+            </div>
+        )
+    };
+
     const EntModal = () => {
         const [code, setCode] = useState("");
-        const inputRef = useRef(null);
 
         const handleChange = (event) => {
             setCode(event.target.value);
@@ -135,28 +150,13 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load })
             addFriend(code);
         };
 
-        useLayoutEffect(() => {
-            if (inputRef.current !== null) {
-                inputRef.current.focus();
-            }
-        });
-
-        const Input = () => {
-            return (
-                <div className="Input">
-                    <input ref={inputRef} type="text" maxLength={7} value={code} onChange={handleChange} />
-                    <button onClick={submit} disabled={code.length < 7}>submit</button>
-                </div>
-            )
-        };
-
         return (
             <div className="EntModal">
                 <div className="Body">
                     <span className="Title">Enter code</span>
                     {(!load) ?
                         <>
-                            <Input />
+                            <Input code={code} handleChange={handleChange} submit={submit} />
                             <div className="Select">
                                 <button onClick={openAddModal}>back</button>
                                 <button onClick={closeModal}>Close</button>
