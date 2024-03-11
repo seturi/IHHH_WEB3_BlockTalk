@@ -199,7 +199,7 @@
 
                             .Name {
                                 margin-right: 8px;
-                                color: black;
+                                color: var(--black);
                                 font-family: Amiko, sans-serif;
                                 font-size: 16px;
                                 font-style: normal;
@@ -302,27 +302,51 @@
                     }
                 }
 
-                .Refresh {
+                .Buttons {
                     display: flex;
-                    cursor: pointer;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 12px;
 
-                    &:hover {
-                        path {
-                            fill: var(--gray);
+                    .Refresh {
+                        display: flex;
+                        cursor: pointer;
+
+                        &:hover {
+                            path {
+                                fill: var(--gray);
+                            }
+                        }
+
+                        &:active {
+                            path {
+                                fill: var(--active);
+                            }
                         }
                     }
 
-                    &:active {
-                        path {
-                            fill: var(--active);
+                    .Close {
+                        display: flex;
+                        cursor: pointer;
+
+                        &:hover {
+                            path {
+                                fill: var(--gray);
+                            }
+                        }
+
+                        &:active {
+                            path {
+                                fill: var(--active);
+                            }
                         }
                     }
                 }
             }
 
             .MessagePanel {
-                height: 412px;
                 display: flex;
+                height: 412px;
                 flex-direction: column;
                 background-color: var(--gray);
                 padding: 12px;
@@ -334,7 +358,7 @@
                     flex-direction: column;
 
                     .Name {
-                        color: black;
+                        color: var(--black);
                         font-family: Amiko, sans-serif;
                         font-size: 16px;
                         font-style: normal;
@@ -347,17 +371,18 @@
 
                         .Text {
                             background-color: white;
-                            max-width: 350px;
+                            max-width: 280px;
                             padding: 8px;
                             margin-right: 4px;
+                            white-space: pre-line;
+                            word-wrap: break-word;
                             color: black;
                             font-family: Amiko, sans-serif;
                             font-size: 16px;
                             font-style: normal;
                             font-weight: 400;
                             line-height: normal;
-                            word-break: break-all;
-                            word-wrap: break-word;
+                            user-select: text;
                         }
 
                         .Time {
@@ -389,33 +414,31 @@
                 }
             }
 
-            .Picture {
-                height: 436px;
-                background-image: url("../images/cat.jpg");
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: cover;
-            }
-
             .Bottom {
-                height: 60px;
                 display: flex;
+                min-height: 40px;
+                height: auto;
                 align-items: center;
                 justify-content: space-between;
-                gap: 12px;
+                padding-top: 10px;
+                padding-bottom: 10px;
 
                 .Input {
-                    width: 100%;
-                    height: 40px;
+                    width: 588px;
+                    min-height: 26px;
                     background-color: white;
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    padding-top: 8px;
+                    padding-bottom: 6px;
 
-                    input {
+                    textarea {
                         width: 100%;
+                        display: block;
                         border: none;
                         outline: none;
+                        resize: none;
                         margin-left: 4px;
                         margin-right: 4px;
                         color: var(--black);
@@ -429,6 +452,9 @@
                 }
 
                 .Send {
+                    position: absolute;
+                    bottom: 10px;
+                    right: 12px;
                     display: flex;
                     cursor: pointer;
 

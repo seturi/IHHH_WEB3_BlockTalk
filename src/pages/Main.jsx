@@ -66,6 +66,14 @@ export const Main = (props) => {
         dispatch(open(payload));
     };
 
+    const deselect = () => {
+        const selection = window.getSelection();
+
+        if (selection) {
+            selection.removeAllRanges();
+        }
+    };
+
     useEffect(() => {
         async function loadFriends() {
             let friendList = [];
@@ -119,7 +127,7 @@ export const Main = (props) => {
     });
 
     return (
-        <div className="Main">
+        <div className="Main" onMouseDown={deselect}>
             <div className="Container">
                 <NavBar name={props.name} address={props.address} />
                 <div className="Contents">

@@ -1,5 +1,3 @@
-import React from "react";
-
 export function Message(props) {
     const messageSender = props.isMine ? "Message MyMessage" : "Message";
 
