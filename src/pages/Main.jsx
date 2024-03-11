@@ -135,6 +135,7 @@ export const Main = (props) => {
                     <ChatRoom
                         name={(index !== null) ? friends[index].name : null}
                         address={(index !== null) ? friends[index].publicKey : null}
+                        myContract={props.myContract}
                     />
                 </div>
                 {toast && <Toast />}

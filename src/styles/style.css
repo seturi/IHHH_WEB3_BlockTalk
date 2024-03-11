@@ -353,6 +353,14 @@
                 overflow-y: scroll;
                 gap: 8px;
 
+                .dateDivider {
+                    color: gray;
+                    font-family: Amiko, sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    text-align: center;
+                }
+
                 .Message {
                     display: flex;
                     flex-direction: column;

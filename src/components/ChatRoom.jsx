@@ -40,7 +40,7 @@ const Input = ({ inputText, handleInputChange, handleEnter, inputRef, setRowHeig
     );
 };
 
-export const ChatRoom = ({ name, address }) => {
+export const ChatRoom = ({ name, address, myContract }) => {
     const dispatch = useDispatch();
     const index = useSelector(state => state.chat.index);
     const [inputText, setInputText] = useState("");
@@ -50,9 +50,36 @@ export const ChatRoom = ({ name, address }) => {
     const messagePanelRef = useRef();
 
     const getMessages = async () => {
-        let name;
-        let messages = [];
+        let nickname;
+        let isMine;
+        let time;
+        let activeMessages = []
+
+        const data = await myContract.readMessage(address);
+        data.forEach((item) => {
+            time = new Date(1000 * item[1].toNumber()).toUTCString();
+            if (item[0] === address) {
+                nickname = name;
+                isMine = false;
+            } else {
+                nickname = "";
+                isMine = true;
+            }
+
+            const msg = {
+                name: nickname,
+                text: item[2],
+                time: time,
+                isMine: isMine,
+            };
+            activeMessages.push(msg);
+        });
+        setMessages(activeMessages);
     };
+
+    const sendMessage = async (data) => {
+        await myContract.sendMessage(address, data);
+    }
 
     const handleRefresh = () => {
         getMessages();
@@ -68,9 +95,10 @@ export const ChatRoom = ({ name, address }) => {
         const newMessage = {
             name: "",
             text: inputText,
-            time: new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }),
+            time: new Date().toUTCString(),
             isMine: true,
         };
+        sendMessage(inputText);
         setMessages([...messages, newMessage]);
         setInputText("");
         inputRef.current.focus();
@@ -93,7 +121,7 @@ export const ChatRoom = ({ name, address }) => {
     };
 
     useLayoutEffect(() => {
-        getMessages();
+        if (index !== null) getMessages();
 
         if (messagePanelRef.current) {
             messagePanelRef.current.style.height = 434 - rowHeight + "px";
@@ -149,19 +177,36 @@ export const ChatRoom = ({ name, address }) => {
                         </div>
                     </div>
                     <div className="MessagePanel" ref={messagePanelRef}>
-                        <Message name="name1" text="hello" time="00:00" isMine={false} />
+                        <Message name={name} text="hello" time="00:00" isMine={false} />
                         {messages.map((msg, index) => {
+                            const prevMsg = index > 0 ? messages[index - 1] : null;
                             const nextMsg = messages[index + 1];
-                            const showTime = !nextMsg || nextMsg.time !== msg.time || nextMsg.isMine !== msg.isMine;
+
+                            const currentTime = new Date(msg.time).toLocaleTimeString([], 
+                                { hour: 'numeric', minute: '2-digit' });
+                            const nextTime = nextMsg ? new Date(nextMsg.time).toLocaleTimeString([], 
+                                { hour: 'numeric', minute: '2-digit' }) : null;
+                            const showTime = !nextMsg || nextTime !== currentTime || nextMsg.isMine !== msg.isMine;
+
+                            const prevDate = prevMsg ? new Date(prevMsg.time).toLocaleDateString([], 
+                                { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' }) : null;
+                            const currentDate = new Date(msg.time).toLocaleDateString([], 
+                                { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
+                            const showDateDivider = currentDate !== prevDate;
 
                             return (
-                                <Message
-                                    key={index}
-                                    name={msg.name}
-                                    text={msg.text}
-                                    time={showTime ? msg.time : undefined}
-                                    isMine={msg.isMine}
-                                />
+                                <>
+                                    {showDateDivider && (
+                                        <div className="dateDivider">{currentDate}</div>
+                                    )}
+                                    <Message
+                                        key={index}
+                                        name={msg.name}
+                                        text={msg.text}
+                                        time={showTime ? currentTime : undefined}
+                                        isMine={msg.isMine}
+                                    />
+                                </>
                             );
                         })}
                     </div>
