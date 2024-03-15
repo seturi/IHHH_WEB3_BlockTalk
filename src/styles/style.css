@@ -150,6 +150,10 @@
             display: flex;
             align-items: center;
             user-select: none;
+            
+            ::-webkit-scrollbar {
+                display: none;
+            }
 
             .SideBar {
                 flex: 1;
@@ -184,6 +188,7 @@
                         background-color: white;
                         padding-left: 8px;
                         cursor: pointer;
+                        border-radius: 0px 0px 10px 0px;
 
                         &:hover {
                             background-color: var(--gray);
@@ -625,12 +630,23 @@
                 justify-content: center;
                 gap: 30px;
 
-                .Generate {
-                    cursor: pointer;
+                .Generate, .Enter {
+                    font-size: 12px;
+                    border-radius: 5px;
+                    border: none;
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                    margin-top: 5px;
+                    width: 100px;
                 }
 
-                .Enter {
+                .Generate:hover, .Enter:hover {
                     cursor: pointer;
+                    background-color: var(--gray);
+                }
+
+                .Generate:active, .Enter:active {
+                    background-color: var(--active);
                 }
             }
 

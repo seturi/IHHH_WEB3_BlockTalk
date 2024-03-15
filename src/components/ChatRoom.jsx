@@ -169,10 +169,7 @@ export const ChatRoom = ({ name, address, myContract, openToast }) => {
             messagePanelRef.current.scrollTop = messagePanelRef.current.scrollHeight;
         }
     },);
-    /* TODO: 새로고침 이벤트 핸들링
-    const handleRefresh = async () => {
-        
-    };*/
+
     return (
         <div className="ChatRoom">
             {(index !== null) ?
