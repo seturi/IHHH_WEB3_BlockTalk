@@ -2,16 +2,17 @@ import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PulseLoader } from "react-spinners";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { setAddModal, setGenModal, setEntModal } from "../redux/states/Modals";
+import { setAddModal, setGenModal, setEntModal, setConModal } from "../redux/states/Modals";
 import { toastType } from "../redux/states/Toast";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faRightFromBracket, faRightToBracket} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightFromBracket, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, openToast }) => {
     const dispatch = useDispatch();
     const addModal = useSelector(state => state.modal.addModal);
     const genModal = useSelector(state => state.modal.genModal);
     const entModal = useSelector(state => state.modal.entModal);
+    const conModal = useSelector(state => state.modal.conModal);
 
     const openAddModal = () => {
         dispatch(setAddModal(true));
@@ -30,10 +31,15 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
         dispatch(setEntModal(true));
     };
 
+    const openConModal = () => {
+        dispatch(setConModal(true));
+    };
+
     const closeModal = () => {
         dispatch(setAddModal(false));
         dispatch(setGenModal(false));
         dispatch(setEntModal(false));
+        dispatch(setConModal(false));
     };
 
     const AddModal = () => {
@@ -44,11 +50,11 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
                     <div className="Select">
                         <button className="Generate" onClick={openGenModal}>
                             <FontAwesomeIcon icon={faRightFromBracket} size="2x" />
-                            <br/>Generate<br/>Code
+                            <br />Generate<br />Code
                         </button>
                         <button className="Enter" onClick={openEntModal}>
                             <FontAwesomeIcon icon={faRightToBracket} size="2x" />
-                            <br/>Enter<br/>Code
+                            <br />Enter<br />Code
                         </button>
                     </div>
                     <div className="Close">
@@ -180,12 +186,24 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
                             <div className="Loading">
                                 <PulseLoader color="white" size={10} />
                             </div>
-                            <div className="bottom"></div>
-
+                            <div className="bottom" />
                         </>
                     }
                 </div >
             </div >
+        )
+    };
+
+    const ConModal = () => {
+        return (
+            <div className="ConModal">
+                <div className="Body">
+                    <span className="Title">Contact us</span>
+                    <div className="Close">
+                        <button onClick={closeModal}>Close</button>
+                    </div>
+                </div>
+            </div>
         )
     };
 
@@ -194,6 +212,7 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
             {addModal && <AddModal />}
             {genModal && <GenModal />}
             {entModal && <EntModal />}
+            {conModal && <ConModal />}
         </div>
     )
 };
