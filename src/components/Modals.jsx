@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { PulseLoader } from "react-spinners";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { setAddModal, setGenModal, setEntModal } from "../redux/states/Modals";
-import { open, toastType } from "../redux/states/Toast";
+import { toastType } from "../redux/states/Toast";
 
-export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load }) => {
+export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, openToast }) => {
     const dispatch = useDispatch();
     const addModal = useSelector(state => state.modal.addModal);
     const genModal = useSelector(state => state.modal.genModal);
@@ -32,15 +32,6 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load })
         dispatch(setAddModal(false));
         dispatch(setGenModal(false));
         dispatch(setEntModal(false));
-    };
-
-    const openToast = (type, message) => {
-        const payload = {
-            type: type,
-            message: message
-        };
-
-        dispatch(open(payload));
     };
 
     const AddModal = () => {
@@ -123,7 +114,9 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load })
         )
     };
 
-    const Input = ({ code, handleChange, submit }) => {
+    const Input = ({ code, handleChange, handleEnter, submit }) => {
+        const isToastOpened = useSelector(state => state.toast.isOpen);
+
         return (
             <div className="Input">
                 <input
@@ -133,6 +126,8 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load })
                     maxLength={7}
                     value={code}
                     onChange={handleChange}
+                    onKeyDown={handleEnter}
+                    disabled={isToastOpened}
                 />
                 <button onClick={submit} disabled={code.length < 7}>submit</button>
             </div>
@@ -150,13 +145,25 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load })
             addFriend(code);
         };
 
+        const handleEnter = (event) => {
+            if (code.length === 7 && event.key === "Enter") {
+                event.preventDefault();
+                submit();
+            }
+        };
+
         return (
             <div className="EntModal">
                 <div className="Body">
                     <span className="Title">Enter code</span>
                     {(!load) ?
                         <>
-                            <Input code={code} handleChange={handleChange} submit={submit} />
+                            <Input
+                                code={code}
+                                handleChange={handleChange}
+                                handleEnter={handleEnter}
+                                submit={submit}
+                            />
                             <div className="Select">
                                 <button onClick={openAddModal}>back</button>
                                 <button onClick={closeModal}>Close</button>

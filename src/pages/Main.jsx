@@ -38,7 +38,8 @@ export const Main = (props) => {
             } catch (err) {
                 dispatch(setAddModal(true));
                 dispatch(setGenModal(false));
-                openToast(toastType.FAIL, "User denied transation signature");
+                openToast(toastType.FAIL, err.error?.message.substring(20) || "User denied transation signature");
+                console.error(err);
             }
         }
     };
@@ -52,7 +53,7 @@ export const Main = (props) => {
             setLoad(false);
             openToast(toastType.SUCC, "Friend added successfully")
         } catch (err) {
-            openToast(toastType.FAIL, "Invalid code");
+            openToast(toastType.FAIL, err.error?.message.substring(20) || "User denied transation signature");
             setLoad(false);
         }
     };
@@ -129,13 +130,18 @@ export const Main = (props) => {
     return (
         <div className="Main" onMouseDown={deselect}>
             <div className="Container">
-                <NavBar name={props.name} address={props.address} />
+                <NavBar
+                    name={props.name}
+                    address={props.address}
+                    openToast={openToast}
+                />
                 <div className="Contents">
                     <SideBar friends={friends} />
                     <ChatRoom
                         name={(index !== null) ? friends[index].name : null}
                         address={(index !== null) ? friends[index].publicKey : null}
                         myContract={props.myContract}
+                        openToast={openToast}
                     />
                 </div>
                 {toast && <Toast />}
@@ -146,6 +152,7 @@ export const Main = (props) => {
                 generateCode={generateCode}
                 addFriend={addFriend}
                 load={load}
+                openToast={openToast}
             />
         </div>
     )
