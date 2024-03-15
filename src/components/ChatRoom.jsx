@@ -1,9 +1,9 @@
-import { useState, useRef, useLayoutEffect } from "react";
+import { useState, useRef, useLayoutEffect, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import TextareaAutosize from "react-textarea-autosize";
 import { Message } from "./Components"
-import { open, toastType } from "../redux/states/Toast";
+import { toastType } from "../redux/states/Toast";
 import { ReactComponent as RefImg } from "../images/refresh.svg"
 import { ReactComponent as CloseImg } from "../images/close.svg"
 import { ReactComponent as SendImg } from "../images/send.svg"
@@ -22,7 +22,7 @@ const Refresh = ({ handleRefresh }) => {
     )
 };
 
-const Input = ({ inputText, handleInputChange, handleEnter, inputRef, setRowHeight }) => {
+const Input = ({ inputText, handleInputChange, handleEnter, inputRef, setRowHeight, inputDisabled }) => {
     return (
         <div className="Input">
             <TextareaAutosize
@@ -35,17 +35,54 @@ const Input = ({ inputText, handleInputChange, handleEnter, inputRef, setRowHeig
                 value={inputText}
                 onChange={handleInputChange}
                 onKeyDown={handleEnter}
+                disabled={inputDisabled}
             />
         </div>
     );
 };
 
-export const ChatRoom = ({ name, address, myContract }) => {
+const Send = ({ handleSend, inputText, inputDisabled }) => {
+    const [sendDisabled, setSendDisabled] = useState(true);
+
+    useEffect(() => {
+        if (!inputText.trim() || inputDisabled) {
+            setSendDisabled(true);
+        } else {
+            setSendDisabled(false);
+        }
+    }, [inputText, inputDisabled])
+
+    return (
+        <div className={`Send ${sendDisabled && "disabled"}`}>
+            <SendImg
+                width={44}
+                height={40}
+                onClick={() => { (!sendDisabled) && handleSend() }}
+            />
+        </div >
+    )
+};
+
+const Close = ({ handleClose }) => {
+    return (
+        <div className="Close">
+            <CloseImg
+                width={28}
+                height={28}
+                fill="white"
+                onClick={handleClose}
+            />
+        </div>
+    )
+};
+
+export const ChatRoom = ({ name, address, myContract, openToast }) => {
     const dispatch = useDispatch();
     const index = useSelector(state => state.chat.index);
     const [inputText, setInputText] = useState("");
     const [messages, setMessages] = useState([]);
     const [rowHeight, setRowHeight] = useState();
+    const [inputDisabled, setInputDisabled] = useState(false);
     const inputRef = useRef();
     const messagePanelRef = useRef();
 
@@ -89,7 +126,7 @@ export const ChatRoom = ({ name, address, myContract }) => {
         setInputText(event.target.value);
     };
 
-    const handleSend = () => {
+    const handleSend = async () => {
         if (!inputText.trim()) return;
 
         const newMessage = {
@@ -98,10 +135,17 @@ export const ChatRoom = ({ name, address, myContract }) => {
             time: new Date().toUTCString(),
             isMine: true,
         };
-        sendMessage(inputText);
-        setMessages([...messages, newMessage]);
-        setInputText("");
-        inputRef.current.focus();
+
+        try {
+            setInputDisabled(true);
+            await sendMessage(inputText);
+            setMessages([...messages, newMessage]);
+            setInputDisabled(false);
+            setInputText("");
+        } catch (err) {
+            setInputDisabled(false);
+            openToast(toastType.FAIL, err.error?.message.substring(20) || "User denied transation signature");
+        }
     };
 
     const handleEnter = (event) => {
@@ -111,13 +155,9 @@ export const ChatRoom = ({ name, address, myContract }) => {
         }
     };
 
-    const openToast = (type, message) => {
-        const payload = {
-            type: type,
-            message: message
-        };
-
-        dispatch(open(payload));
+    const handleClose = () => {
+        setInputText("");
+        dispatch(setIndex(null));
     };
 
     useLayoutEffect(() => {
@@ -127,32 +167,7 @@ export const ChatRoom = ({ name, address, myContract }) => {
             messagePanelRef.current.style.height = 434 - rowHeight + "px";
             messagePanelRef.current.scrollTop = messagePanelRef.current.scrollHeight;
         }
-    }, [messages.length, rowHeight]);
-
-    const Close = () => {
-        return (
-            <div className="Close">
-                <CloseImg
-                    width={28}
-                    height={28}
-                    fill="white"
-                    onClick={() => dispatch(setIndex(null))}
-                />
-            </div>
-        )
-    }
-
-    const Send = () => {
-        return (
-            <div className="Send">
-                <SendImg
-                    width={44}
-                    height={40}
-                    onClick={handleSend}
-                />
-            </div>
-        )
-    };
+    },);
 
     return (
         <div className="ChatRoom">
@@ -170,7 +185,7 @@ export const ChatRoom = ({ name, address, myContract }) => {
                         </div>
                         <div className="Buttons">
                             <Refresh handleRefresh={handleRefresh} />
-                            <Close />
+                            <Close handleClose={handleClose} />
                         </div>
                     </div>
                     <div className="MessagePanel" ref={messagePanelRef}>
@@ -178,15 +193,15 @@ export const ChatRoom = ({ name, address, myContract }) => {
                             const prevMsg = index > 0 ? messages[index - 1] : null;
                             const nextMsg = messages[index + 1];
 
-                            const currentTime = new Date(msg.time).toLocaleTimeString([], 
+                            const currentTime = new Date(msg.time).toLocaleTimeString([],
                                 { hour: 'numeric', minute: '2-digit' });
-                            const nextTime = nextMsg ? new Date(nextMsg.time).toLocaleTimeString([], 
+                            const nextTime = nextMsg ? new Date(nextMsg.time).toLocaleTimeString([],
                                 { hour: 'numeric', minute: '2-digit' }) : null;
                             const showTime = !nextMsg || nextTime !== currentTime || nextMsg.isMine !== msg.isMine;
 
-                            const prevDate = prevMsg ? new Date(prevMsg.time).toLocaleDateString([], 
+                            const prevDate = prevMsg ? new Date(prevMsg.time).toLocaleDateString([],
                                 { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' }) : null;
-                            const currentDate = new Date(msg.time).toLocaleDateString([], 
+                            const currentDate = new Date(msg.time).toLocaleDateString([],
                                 { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
                             const showDateDivider = currentDate !== prevDate;
 
@@ -213,10 +228,16 @@ export const ChatRoom = ({ name, address, myContract }) => {
                             handleEnter={handleEnter}
                             inputRef={inputRef}
                             setRowHeight={setRowHeight}
+                            inputDisabled={inputDisabled}
                         />
-                        <Send handleSend={handleSend} />
+                        <Send
+                            handleSend={handleSend}
+                            inputText={inputText}
+                            inputDisabled={inputDisabled}
+                        />
                     </div>
-                </> : null
+                </> : <div className="Space">
+                </div>
             }
         </div>
     )

@@ -2,6 +2,7 @@
     --red: #FF3200;
     --blue: #7BCDD8;
     --gray: #E2E2E2;
+    --background: #F2F2F2;
     --black: #252525;
     --shadow: #25252555;
     --active: #DADADA;
@@ -175,7 +176,7 @@
                 .ChatCardPanel {
                     height: 436px;
                     overflow-y: scroll;
-                    background-color: var(--gray);
+                    background-color: var(--background);
 
                     .ChatCard {
                         height: 72.5px;
@@ -349,7 +350,7 @@
                 display: flex;
                 height: 412px;
                 flex-direction: column;
-                background-color: var(--gray);
+                background-color: var(--background);
                 padding: 12px;
                 overflow-y: scroll;
                 gap: 8px;
@@ -479,6 +480,31 @@
                         }
                     }
                 }
+
+                .Send.disabled {
+                    cursor: auto;
+
+                    path {
+                        fill: var(--gray);
+                    }
+
+                    &:hover {
+                        path {
+                            fill: var(--gray);
+                        }
+                    }
+
+                    &:active {
+                        path {
+                            fill: var(--gray);
+                        }
+                    }
+                }
+            }
+
+            .Space {
+                height: 486px;
+                background-color: var(--background);
             }
         }
 

@@ -1,20 +1,8 @@
-import { useDispatch } from "react-redux";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { open, toastType } from "../redux/states/Toast";
+import { toastType } from "../redux/states/Toast";
 import LogoImg from "../images/blocktalk_t.png"
 
-export const NavBar = (props) => {
-    const dispatch = useDispatch();
-
-    const openToast = (type, message) => {
-        const payload = {
-            type: type,
-            message: message
-        };
-
-        dispatch(open(payload));
-    };
-
+export const NavBar = ({ name, address, openToast }) => {
     return (
         <div className="NavBar">
             <div className="Logo">
@@ -23,16 +11,16 @@ export const NavBar = (props) => {
             </div>
             <div className="User">
                 <CopyToClipboard
-                    text={props.name}
+                    text={name}
                     onCopy={() => openToast(toastType.SUCC, "Copied to clipboard")}
                 >
-                    <span className="Name">{props.name}</span>
+                    <span className="Name">{name}</span>
                 </CopyToClipboard>
                 <CopyToClipboard
-                    text={props.address}
+                    text={address}
                     onCopy={() => openToast(toastType.SUCC, "Copied to clipboard")}
                 >
-                    <span className="Address">{props.address.substring(0, 10) + "..."}</span>
+                    <span className="Address">{address.substring(0, 10) + "..."}</span>
                 </CopyToClipboard>
             </div>
         </div>
