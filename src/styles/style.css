@@ -150,6 +150,10 @@
             display: flex;
             align-items: center;
             user-select: none;
+            
+            ::-webkit-scrollbar {
+                display: none;
+            }
 
             .SideBar {
                 flex: 1;
