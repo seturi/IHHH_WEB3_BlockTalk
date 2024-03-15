@@ -9,6 +9,8 @@ import { ReactComponent as RefImg } from "../images/refresh.svg"
 import { ReactComponent as CloseImg } from "../images/close.svg"
 import { ReactComponent as SendImg } from "../images/send.svg"
 import { setIndex } from "../redux/states/Chat";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
 
 const Refresh = ({ handleRefresh }) => {
     return (
@@ -246,6 +248,7 @@ export const ChatRoom = ({ name, address, myContract, openToast }) => {
                             3. Select your friend in chats and start chatting
                         </p>
                         <div className="Contact">
+                            <FontAwesomeIcon icon={faUsers} size="3x"/>
                             <span>Contact us</span>
                         </div>
                         <img src={LogoImg} alt="blocktalk_t.png" />

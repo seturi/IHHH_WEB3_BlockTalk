@@ -544,6 +544,12 @@
                     }
 
                     .Contact {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 10px;
+
                         span {
                             color: var(--black);
                             font-family: Amiko, sans-serif;
