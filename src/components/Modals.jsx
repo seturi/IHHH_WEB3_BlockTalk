@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PulseLoader } from "react-spinners";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { setAddModal, setGenModal, setEntModal } from "../redux/states/Modals";
+import { setAddModal, setGenModal, setEntModal, setConModal } from "../redux/states/Modals";
 import { toastType } from "../redux/states/Toast";
 
 export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, openToast }) => {
@@ -10,6 +10,7 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
     const addModal = useSelector(state => state.modal.addModal);
     const genModal = useSelector(state => state.modal.genModal);
     const entModal = useSelector(state => state.modal.entModal);
+    const conModal = useSelector(state => state.modal.conModal);
 
     const openAddModal = () => {
         dispatch(setAddModal(true));
@@ -28,10 +29,15 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
         dispatch(setEntModal(true));
     };
 
+    const openConModal = () => {
+        dispatch(setConModal(true));
+    };
+
     const closeModal = () => {
         dispatch(setAddModal(false));
         dispatch(setGenModal(false));
         dispatch(setEntModal(false));
+        dispatch(setConModal(false));
     };
 
     const AddModal = () => {
@@ -181,11 +187,20 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
         )
     };
 
+    const ConModal = () => {
+        return (
+            <div className="ConModal">
+                <div className="body"></div>
+            </div>
+        )
+    };
+
     return (
         <div className="Modals">
             {addModal && <AddModal />}
             {genModal && <GenModal />}
             {entModal && <EntModal />}
+            {conModal && <ConModal />}
         </div>
     )
 };

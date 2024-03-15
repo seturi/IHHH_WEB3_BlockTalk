@@ -937,4 +937,29 @@
             }
         }
     }
+
+    .ConModal {
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--shadow);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+
+        .Body {
+            height: 150px;
+            width: 250px;
+            padding: 12px;
+            background-color: var(--blue);
+            backdrop-filter: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    }
 }
