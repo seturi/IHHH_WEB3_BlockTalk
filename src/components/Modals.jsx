@@ -4,6 +4,8 @@ import { PulseLoader } from "react-spinners";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { setAddModal, setGenModal, setEntModal } from "../redux/states/Modals";
 import { open, toastType } from "../redux/states/Toast";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faRightFromBracket, faRightToBracket} from "@fortawesome/free-solid-svg-icons";
 
 export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load }) => {
     const dispatch = useDispatch();
@@ -49,8 +51,14 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load })
                 <div className="Body">
                     <span className="Title">Add new chat</span>
                     <div className="Select">
-                        <button className="Generate" onClick={openGenModal}>Generate code</button>
-                        <button className="Enter" onClick={openEntModal}>Enter code</button>
+                        <button className="Generate" onClick={openGenModal}>
+                            <FontAwesomeIcon icon={faRightFromBracket} size="2x" />
+                            <br/>Generate<br/>Code
+                        </button>
+                        <button className="Enter" onClick={openEntModal}>
+                            <FontAwesomeIcon icon={faRightToBracket} size="2x" />
+                            <br/>Enter<br/>Code
+                        </button>
                     </div>
                     <div className="Close">
                         <button onClick={closeModal}>Close</button>

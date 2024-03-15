@@ -153,10 +153,7 @@ export const ChatRoom = ({ name, address, myContract }) => {
             </div>
         )
     };
-    /* TODO: 새로고침 이벤트 핸들링
-    const handleRefresh = async () => {
-        
-    };*/
+
     return (
         <div className="ChatRoom">
             {(index !== null) ?
@@ -177,7 +174,6 @@ export const ChatRoom = ({ name, address, myContract }) => {
                         </div>
                     </div>
                     <div className="MessagePanel" ref={messagePanelRef}>
-                        <Message name={name} text="hello" time="00:00" isMine={false} />
                         {messages.map((msg, index) => {
                             const prevMsg = index > 0 ? messages[index - 1] : null;
                             const nextMsg = messages[index + 1];
