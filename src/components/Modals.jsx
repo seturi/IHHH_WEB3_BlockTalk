@@ -4,8 +4,8 @@ import { PulseLoader } from "react-spinners";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { setAddModal, setGenModal, setEntModal, setConModal } from "../redux/states/Modals";
 import { toastType } from "../redux/states/Toast";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faRightFromBracket, faRightToBracket} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightFromBracket, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, openToast }) => {
     const dispatch = useDispatch();
@@ -50,11 +50,11 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
                     <div className="Select">
                         <button className="Generate" onClick={openGenModal}>
                             <FontAwesomeIcon icon={faRightFromBracket} size="2x" />
-                            <br/>Generate<br/>Code
+                            <br />Generate<br />Code
                         </button>
                         <button className="Enter" onClick={openEntModal}>
                             <FontAwesomeIcon icon={faRightToBracket} size="2x" />
-                            <br/>Enter<br/>Code
+                            <br />Enter<br />Code
                         </button>
                     </div>
                     <div className="Close">
@@ -186,8 +186,7 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
                             <div className="Loading">
                                 <PulseLoader color="white" size={10} />
                             </div>
-                            <div className="bottom"></div>
-
+                            <div className="bottom" />
                         </>
                     }
                 </div >
@@ -198,7 +197,12 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
     const ConModal = () => {
         return (
             <div className="ConModal">
-                <div className="body"></div>
+                <div className="Body">
+                    <span className="Title">Contact us</span>
+                    <div className="Close">
+                        <button onClick={closeModal}>Close</button>
+                    </div>
+                </div>
             </div>
         )
     };

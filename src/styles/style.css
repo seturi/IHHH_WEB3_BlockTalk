@@ -150,7 +150,7 @@
             display: flex;
             align-items: center;
             user-select: none;
-            
+
             ::-webkit-scrollbar {
                 display: none;
             }
@@ -630,7 +630,8 @@
                 justify-content: center;
                 gap: 30px;
 
-                .Generate, .Enter {
+                .Generate,
+                .Enter {
                     font-size: 12px;
                     border-radius: 5px;
                     border: none;
@@ -640,12 +641,14 @@
                     width: 100px;
                 }
 
-                .Generate:hover, .Enter:hover {
+                .Generate:hover,
+                .Enter:hover {
                     cursor: pointer;
                     background-color: var(--gray);
                 }
 
-                .Generate:active, .Enter:active {
+                .Generate:active,
+                .Enter:active {
                     background-color: var(--active);
                 }
             }
@@ -976,6 +979,44 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+
+            .Title {
+                color: white;
+                font-family: Amiko, sans-serif;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+
+            .Close {
+                display: flex;
+                justify-content: right;
+
+                button {
+                    background-color: transparent;
+                    width: 50px;
+                    height: 30px;
+                    border: none;
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: var(--gray);
+                        color: var(--black);
+                    }
+
+                    &:active {
+                        background-color: var(--active);
+                        color: var(--black);
+                    }
+                }
+            }
         }
     }
 }
