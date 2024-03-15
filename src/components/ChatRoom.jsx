@@ -4,6 +4,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import TextareaAutosize from "react-textarea-autosize";
 import { Message } from "./Components"
 import { toastType } from "../redux/states/Toast";
+import LogoImg from "../images/blocktalk_t.png"
 import { ReactComponent as RefImg } from "../images/refresh.svg"
 import { ReactComponent as CloseImg } from "../images/close.svg"
 import { ReactComponent as SendImg } from "../images/send.svg"
@@ -240,6 +241,18 @@ export const ChatRoom = ({ name, address, myContract, openToast }) => {
                         />
                     </div>
                 </> : <div className="Space">
+                    <div className="TopBar">Let's get started</div>
+                    <div className="LogoPanel">
+                        <p>
+                            1. Press add to start your chat<br />
+                            2. Generate code or enter your friend's code<br />
+                            3. Select your friend in chats and start chatting
+                        </p>
+                        <div className="Contact">
+                            <span>Contact us</span>
+                        </div>
+                        <img src={LogoImg} alt="blocktalk_t.png" />
+                    </div>
                 </div>
             }
         </div>

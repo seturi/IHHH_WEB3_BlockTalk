@@ -502,8 +502,60 @@
             }
 
             .Space {
-                height: 486px;
-                background-color: var(--background);
+                display: flex;
+                flex-direction: column;
+
+
+                .TopBar {
+                    height: 50px;
+                    background-color: var(--black);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+
+                .LogoPanel {
+                    height: 436px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: var(--background);
+
+                    p {
+                        z-index: 10;
+                        color: var(--black);
+                        font-family: Amiko, sans-serif;
+                        font-size: 20px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 300%;
+                    }
+
+                    .Contact {
+                        span {
+                            color: var(--black);
+                            font-family: Amiko, sans-serif;
+                            font-size: 24px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                        }
+                    }
+
+                    img {
+                        position: fixed;
+                        height: 250px;
+                        filter: grayscale(100%);
+                        mix-blend-mode: soft-light;
+                    }
+                }
             }
         }
 
