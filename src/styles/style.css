@@ -106,7 +106,15 @@
             }
 
             .User {
-                cursor: pointer;
+                .Greet {
+                    margin-right: 8px;
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
 
                 .Name {
                     margin-right: 8px;
@@ -116,6 +124,7 @@
                     font-style: normal;
                     font-weight: 400;
                     line-height: normal;
+                    cursor: pointer;
 
                     &:hover {
                         text-decoration: underline;
@@ -133,6 +142,7 @@
                     font-style: normal;
                     font-weight: 400;
                     line-height: normal;
+                    cursor: pointer;
 
                     &:hover {
                         text-decoration: underline;
@@ -544,11 +554,13 @@
                     }
 
                     .Contact {
+                        z-index: 10;
                         display: flex;
                         flex-direction: column;
                         align-items: center;
                         justify-content: center;
                         gap: 10px;
+                        cursor: pointer;
 
                         span {
                             color: var(--black);
@@ -993,6 +1005,30 @@
                 font-style: normal;
                 font-weight: 400;
                 line-height: normal;
+            }
+
+            .Links {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+
+                span {
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 13px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    cursor: pointer;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+
+                    &:active {
+                        color: var(--active);
+                    }
+                }
             }
 
             .Close {

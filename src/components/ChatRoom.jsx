@@ -9,7 +9,8 @@ import { ReactComponent as RefImg } from "../images/refresh.svg"
 import { ReactComponent as CloseImg } from "../images/close.svg"
 import { ReactComponent as SendImg } from "../images/send.svg"
 import { setIndex } from "../redux/states/Chat";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { setConModal } from "../redux/states/Modals";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 
 const Refresh = ({ handleRefresh }) => {
@@ -247,8 +248,8 @@ export const ChatRoom = ({ name, address, myContract, openToast }) => {
                             2. Generate code or enter your friend's code<br />
                             3. Select your friend in chats and start chatting
                         </p>
-                        <div className="Contact">
-                            <FontAwesomeIcon icon={faUsers} size="3x"/>
+                        <div className="Contact" onClick={() => dispatch(setConModal(true))}>
+                            <FontAwesomeIcon icon={faUsers} size="3x" />
                             <span>Contact us</span>
                         </div>
                         <img src={LogoImg} alt="blocktalk_t.png" />

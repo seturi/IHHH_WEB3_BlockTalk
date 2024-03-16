@@ -10,7 +10,7 @@ export const NavBar = ({ name, address, openToast }) => {
                 <span>BLOCKTALK</span>
             </div>
             <div className="User">
-                <span className="Name">Welcome back,</span>
+                <span className="Greet">Welcome back,</span>
                 <CopyToClipboard
                     text={name}
                     onCopy={() => openToast(toastType.SUCC, "Copied to clipboard")}

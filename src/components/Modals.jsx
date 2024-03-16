@@ -31,10 +31,6 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
         dispatch(setEntModal(true));
     };
 
-    const openConModal = () => {
-        dispatch(setConModal(true));
-    };
-
     const closeModal = () => {
         dispatch(setAddModal(false));
         dispatch(setGenModal(false));
@@ -199,6 +195,17 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
             <div className="ConModal">
                 <div className="Body">
                     <span className="Title">Contact us</span>
+                    <div className="Links">
+                        <div onClick={() => window.open("https://github.com/seturi")}>
+                            <span>seturi(김순욱, Front, Leader)</span>
+                        </div>
+                        <div onClick={() => window.open("https://github.com/Estrel05")}>
+                            <span>Estrel05(이태경, Front)</span>
+                        </div>
+                        <div onClick={() => window.open("https://github.com/D0TORI")}>
+                            <span>D0TORI(전승민, Back)</span>
+                        </div>
+                    </div>
                     <div className="Close">
                         <button onClick={closeModal}>Close</button>
                     </div>
