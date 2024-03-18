@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/IHHH_WEB3_BlockTalk/static/css/main.30ecf3e0.css",
+    "main.js": "/IHHH_WEB3_BlockTalk/static/js/main.b66adbb3.js",
+    "static/media/blocktalk_t.png": "/IHHH_WEB3_BlockTalk/static/media/blocktalk_t.2fb224de1ea8ac7f4e99.png",
+    "index.html": "/IHHH_WEB3_BlockTalk/index.html",
+    "static/media/refresh.svg": "/IHHH_WEB3_BlockTalk/static/media/refresh.4b49d7d2de6801403e09eddfaca9dc37.svg",
+    "static/media/add.svg": "/IHHH_WEB3_BlockTalk/static/media/add.e789ce44968fbad3bfbd868a9435cd8b.svg",
+    "static/media/send.svg": "/IHHH_WEB3_BlockTalk/static/media/send.5450ce33eac9f7f0217b5e270b7c27e3.svg",
+    "static/media/close.svg": "/IHHH_WEB3_BlockTalk/static/media/close.1f405c91cdbc08f16eb537b208f54657.svg",
+    "main.30ecf3e0.css.map": "/IHHH_WEB3_BlockTalk/static/css/main.30ecf3e0.css.map",
+    "main.b66adbb3.js.map": "/IHHH_WEB3_BlockTalk/static/js/main.b66adbb3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.30ecf3e0.css",
+    "static/js/main.b66adbb3.js"
+  ]
+}
