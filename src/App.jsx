@@ -6,7 +6,6 @@ import { abi } from "./abi";
 import "./styles/style.css";
 import "./styles/animation.css";
 
-// TODO: 로그인 페이지 내에서 컨트랙트 배포
 const CONTRACT_ADDRESS = "0x35bdfc8c7675c450721add735d04645f0eb332f2";
 
 const App = () => {
@@ -61,10 +60,10 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/"
-          element={isLoggedIn ? <Navigate to="/main" />
+          element={isLoggedIn ? <Navigate to="main" />
             : <Login login={async () => login()} />} />
         <Route path="/main"
           element={isLoggedIn ? <Main
@@ -72,7 +71,7 @@ const App = () => {
             address={myPublicKey}
             myProvider={myProvider}
             myContract={myContract}
-          /> : <Navigate to="/" />} />
+          /> : <Navigate to="" />} />
       </Routes>
     </BrowserRouter>
   );
