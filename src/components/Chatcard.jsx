@@ -1,11 +1,14 @@
-import React from "react";
+import { useDispatch } from "react-redux";
+import { setIndex } from "../redux/states/Chat"
 
-export function ChatCard(props) {
+export const ChatCard = ({ index, name, address }) => {
+    const dispatch = useDispatch();
+
     return (
-        <div className="ChatCard">
+        <div className="ChatCard" onClick={() => dispatch(setIndex(index))}>
             <div className="User">
-                <span className="Name">{props.name}</span>
-                <span className="Address">{props.address}</span>
+                <span className="Name">{name}</span>
+                <span className="Address">{address.substring(0, 10) + "..."}</span>
             </div>
         </div>
     )

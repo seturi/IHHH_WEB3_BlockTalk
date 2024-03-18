@@ -1,11 +1,19 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
 import LogoImg from "../images/blocktalk_t.png"
 
+export const Login = (props) => {
+    const navigate = useNavigate();
 
-export default function Login(props) {
+    const handleLogin = async () => {
+        const loginSuccess = await props.login();
+        if (loginSuccess) {
+            navigate("/main");
+        }
+    };
+
     return (
-        <div className="Login" onClick={async () => { props.login(); }}>
-            <div className="Container">
+        <div className="Login">
+            <div className="Container" onClick={handleLogin}>
                 <div className="Logo">
                     <img src={LogoImg} alt="blocktalk_t.png"></img>
                     <span>BLOCKTALK</span>
@@ -13,5 +21,5 @@ export default function Login(props) {
                 <span>Click to Login ...</span>
             </div>
         </div>
-    );
+    )
 }

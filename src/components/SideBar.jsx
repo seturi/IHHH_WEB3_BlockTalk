@@ -1,22 +1,35 @@
-import React from "react";
-import { ChatCard, AddNewChat } from "./Components";
+import { useDispatch } from "react-redux";
+import { ChatCard } from "./Components";
+import { ReactComponent as AddImg } from "../images/add.svg"
+import { setAddModal } from "../redux/states/Modals";
 
-export function SideBar() {
+export const SideBar = ({ friends }) => {
+    const dispatch = useDispatch();
+
+    const AddNewChat = () => {
+        return (
+            <div className="AddNewChat">
+                <AddImg
+                    width={40}
+                    height={40}
+                    fill="white"
+                    onClick={() => dispatch(setAddModal(true))}
+                />
+            </div>
+        )
+    };
+
     return (
         <div className="SideBar">
             <div className="TopBar">Chats</div>
             <div className="ChatCardPanel">
-                <ChatCard name="name1" address="0x1" />
-                <ChatCard name="name2" address="0x2" />
-                <ChatCard name="name3" address="0x3" />
-                <ChatCard name="name4" address="0x4" />
-                <ChatCard name="name5" address="0x5" />
-                <ChatCard name="name6" address="0x6" />
-                <ChatCard name="name7" address="0x7" />
+                {friends.map((friend, index) => (
+                    <ChatCard key={index} index={index} name={friend.name} address={friend.publicKey} />
+                ))}
             </div>
             <div className="Bottom">
                 <AddNewChat />
             </div>
         </div>
     )
-}
+};

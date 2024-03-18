@@ -1,0 +1,1078 @@
+:root {
+    --red: #FF3200;
+    --blue: #7BCDD8;
+    --gray: #E2E2E2;
+    --background: #F2F2F2;
+    --black: #252525;
+    --shadow: #25252555;
+    --active: #DADADA;
+}
+
+/* Login */
+.Login {
+    background-color: var(--gray);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+
+    .Container {
+        cursor: pointer;
+        background-color: var(--blue);
+        box-shadow: 0px 0px 10px var(--shadow);
+        width: 1000px;
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 48px;
+
+        .Logo {
+            display: flex;
+            flex-direction: column;
+
+            img {
+                height: 250px;
+                margin-bottom: 24px;
+            }
+
+            span {
+                color: white;
+                font-family: Bangers, system-ui;
+                font-size: 64px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+        }
+
+        span {
+            color: white;
+            font-family: Amiko, sans-serif;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+    }
+}
+
+/* Main */
+.Main {
+    background-color: var(--gray);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .Container {
+        position: relative;
+        background-color: var(--blue);
+        box-shadow: 0px 0px 10px var(--shadow);
+        width: 1000px;
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+
+        .NavBar {
+            height: 40px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            padding-left: 12px;
+            padding-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            user-select: none;
+
+            .Logo {
+                display: flex;
+                gap: 4px;
+
+                img {
+                    height: 40px;
+                }
+
+                span {
+                    color: white;
+                    font-family: Bangers, system-ui;
+                    font-size: 36px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+            }
+
+            .User {
+                .Greet {
+                    margin-right: 8px;
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+
+                .Name {
+                    margin-right: 8px;
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    cursor: pointer;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+
+                    &:active {
+                        color: var(--active);
+                    }
+                }
+
+                .Address {
+                    color: whitesmoke;
+                    font-family: Amiko, sans-serif;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    cursor: pointer;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+
+                    &:active {
+                        color: var(--active);
+                    }
+                }
+            }
+        }
+
+        .Contents {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            user-select: none;
+
+            ::-webkit-scrollbar {
+                display: none;
+            }
+
+            .SideBar {
+                flex: 1;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                margin-left: 12px;
+                margin-right: 12px;
+
+                .TopBar {
+                    height: 50px;
+                    background-color: var(--black);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+
+                .ChatCardPanel {
+                    height: 436px;
+                    overflow-y: scroll;
+                    background-color: var(--background);
+
+                    .ChatCard {
+                        height: 72.5px;
+                        display: flex;
+                        background-color: white;
+                        padding-left: 8px;
+                        cursor: pointer;
+                        border-radius: 0px 0px 10px 0px;
+
+                        &:hover {
+                            background-color: var(--gray);
+                        }
+
+                        &:active {
+                            background-color: var(--active);
+                        }
+
+                        .User {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+
+                            .Name {
+                                margin-right: 8px;
+                                color: var(--black);
+                                font-family: Amiko, sans-serif;
+                                font-size: 16px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: normal;
+                            }
+
+                            .Address {
+                                color: gray;
+                                font-family: Amiko, sans-serif;
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: normal;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .Bottom {
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                user-select: none;
+
+                .AddNewChat {
+                    display: flex;
+                    cursor: pointer;
+
+                    &:hover {
+                        path {
+                            fill: var(--gray);
+                        }
+                    }
+
+                    &:active {
+                        path {
+                            fill: var(--active);
+                        }
+                    }
+                }
+            }
+        }
+
+        .ChatRoom {
+            flex: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-right: 12px;
+
+            .TopBar {
+                height: 50px;
+                background-color: var(--black);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-left: 12px;
+                padding-right: 10px;
+                user-select: none;
+
+                .UserInfo {
+                    cursor: pointer;
+
+                    .Name {
+                        margin-right: 8px;
+                        color: white;
+                        font-family: Amiko, sans-serif;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+
+                        &:active {
+                            color: var(--active);
+                        }
+                    }
+
+                    .Address {
+                        color: whitesmoke;
+                        font-family: Amiko, sans-serif;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+
+                        &:active {
+                            color: var(--active);
+                        }
+                    }
+                }
+
+                .Buttons {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 12px;
+
+                    .Refresh {
+                        display: flex;
+                        cursor: pointer;
+
+                        &:hover {
+                            path {
+                                fill: var(--gray);
+                            }
+                        }
+
+                        &:active {
+                            path {
+                                fill: var(--active);
+                            }
+                        }
+                    }
+
+                    .Close {
+                        display: flex;
+                        cursor: pointer;
+
+                        &:hover {
+                            path {
+                                fill: var(--gray);
+                            }
+                        }
+
+                        &:active {
+                            path {
+                                fill: var(--active);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .MessagePanel {
+                display: flex;
+                height: 412px;
+                flex-direction: column;
+                background-color: var(--background);
+                padding: 12px;
+                overflow-y: scroll;
+                gap: 8px;
+
+                .dateDivider {
+                    color: gray;
+                    font-family: Amiko, sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    text-align: center;
+                }
+
+                .Message {
+                    display: flex;
+                    flex-direction: column;
+
+                    .Name {
+                        color: var(--black);
+                        font-family: Amiko, sans-serif;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                    }
+
+                    .Contents {
+                        display: flex;
+
+                        .Text {
+                            background-color: white;
+                            max-width: 280px;
+                            padding: 8px;
+                            margin-right: 4px;
+                            white-space: pre-line;
+                            word-wrap: break-word;
+                            color: black;
+                            font-family: Amiko, sans-serif;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                            user-select: text;
+                        }
+
+                        .Time {
+                            margin-top: auto;
+                            color: gray;
+                            font-family: Amiko, sans-serif;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                        }
+                    }
+                }
+
+                .MyMessage {
+                    align-items: flex-end;
+
+                    .Contents {
+                        .Text {
+                            background-color: lightblue;
+                            margin-right: 0px;
+                            margin-left: 4px;
+                        }
+
+                        .Time {
+                            order: -1;
+                        }
+                    }
+                }
+            }
+
+            .Bottom {
+                display: flex;
+                min-height: 40px;
+                height: auto;
+                align-items: center;
+                justify-content: space-between;
+                padding-top: 10px;
+                padding-bottom: 10px;
+
+                .Input {
+                    width: 588px;
+                    min-height: 26px;
+                    background-color: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding-top: 8px;
+                    padding-bottom: 6px;
+
+                    textarea {
+                        width: 100%;
+                        display: block;
+                        border: none;
+                        outline: none;
+                        resize: none;
+                        margin-left: 4px;
+                        margin-right: 4px;
+                        color: var(--black);
+                        font-family: Amiko, sans-serif;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                    }
+
+                }
+
+                .Send {
+                    position: absolute;
+                    bottom: 10px;
+                    right: 12px;
+                    display: flex;
+                    cursor: pointer;
+
+                    &:hover {
+                        path {
+                            fill: var(--gray);
+                        }
+                    }
+
+                    &:active {
+                        path {
+                            fill: var(--active);
+                        }
+                    }
+                }
+
+                .Send.disabled {
+                    cursor: auto;
+
+                    path {
+                        fill: var(--gray);
+                    }
+
+                    &:hover {
+                        path {
+                            fill: var(--gray);
+                        }
+                    }
+
+                    &:active {
+                        path {
+                            fill: var(--gray);
+                        }
+                    }
+                }
+            }
+
+            .Space {
+                display: flex;
+                flex-direction: column;
+
+
+                .TopBar {
+                    height: 50px;
+                    background-color: var(--black);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+
+                .LogoPanel {
+                    height: 436px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: var(--background);
+
+                    p {
+                        z-index: 10;
+                        color: var(--black);
+                        font-family: Amiko, sans-serif;
+                        font-size: 20px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 300%;
+                    }
+
+                    .Contact {
+                        z-index: 10;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 10px;
+                        cursor: pointer;
+
+                        span {
+                            color: var(--black);
+                            font-family: Amiko, sans-serif;
+                            font-size: 24px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                        }
+                    }
+
+                    img {
+                        position: fixed;
+                        height: 250px;
+                        filter: grayscale(100%);
+                        mix-blend-mode: soft-light;
+                    }
+                }
+            }
+        }
+
+        .Toast {
+            z-index: 20;
+            position: absolute;
+            top: 27px;
+            left: 50%;
+            background-color: white;
+            border-radius: 18px;
+            box-shadow: 0px 0px 10px var(--shadow);
+            height: 36px;
+            padding-left: 20px;
+            padding-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--black);
+            font-family: Amiko, sans-serif;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            gap: 8px;
+            user-select: none;
+
+            img {
+                height: 16px;
+            }
+        }
+    }
+
+    .AddModal {
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--shadow);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+
+        .Body {
+            height: 150px;
+            width: 250px;
+            padding: 12px;
+            background-color: var(--blue);
+            backdrop-filter: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .Title {
+                color: white;
+                font-family: Amiko, sans-serif;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+
+            .Select {
+                display: flex;
+                justify-content: center;
+                gap: 30px;
+
+                .Generate,
+                .Enter {
+                    font-size: 12px;
+                    border-radius: 5px;
+                    border: none;
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                    margin-top: 5px;
+                    width: 100px;
+                }
+
+                .Generate:hover,
+                .Enter:hover {
+                    cursor: pointer;
+                    background-color: var(--gray);
+                }
+
+                .Generate:active,
+                .Enter:active {
+                    background-color: var(--active);
+                }
+            }
+
+            .Close {
+                display: flex;
+                justify-content: right;
+
+                button {
+                    background-color: transparent;
+                    width: 50px;
+                    height: 30px;
+                    border: none;
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: var(--gray);
+                        color: var(--black);
+                    }
+
+                    &:active {
+                        background-color: var(--active);
+                        color: var(--black);
+                    }
+                }
+            }
+        }
+    }
+
+    .GenModal {
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--shadow);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+
+        .Body {
+            height: 150px;
+            width: 250px;
+            padding: 12px;
+            background-color: var(--blue);
+            backdrop-filter: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .Title {
+                color: white;
+                font-family: Amiko, sans-serif;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+
+            .Return {
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 4px;
+                padding-bottom: 4px;
+
+                .Code {
+                    color: var(--black);
+                    font-family: Amiko, sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    cursor: pointer;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+
+                    &:active {
+                        color: var(--active);
+                    }
+                }
+
+                .Timer {
+                    color: var(--red);
+                    font-family: Amiko, sans-serif;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+            }
+
+            .Loading {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .Select {
+                display: flex;
+                justify-content: right;
+                gap: 12px;
+
+                button {
+                    background-color: transparent;
+                    width: 50px;
+                    height: 30px;
+                    border: none;
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: var(--gray);
+                        color: var(--black);
+                    }
+
+                    &:active {
+                        background-color: var(--active);
+                        color: var(--black);
+                    }
+                }
+            }
+        }
+    }
+
+    .EntModal {
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--shadow);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+
+        .Body {
+            height: 150px;
+            width: 250px;
+            padding: 12px;
+            background-color: var(--blue);
+            backdrop-filter: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .Title {
+                color: white;
+                font-family: Amiko, sans-serif;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+
+            .Input {
+                width: 100%;
+                height: 40px;
+                background-color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                input {
+                    width: 100%;
+                    border: none;
+                    outline: none;
+                    margin-left: 4px;
+                    color: var(--black);
+                    font-family: Amiko, sans-serif;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+            }
+
+            .Send {
+                display: flex;
+                cursor: pointer;
+
+                &:hover {
+                    path {
+                        fill: var(--gray);
+                    }
+                }
+
+                &:active {
+                    path {
+                        fill: var(--active);
+                    }
+                }
+            }
+
+            .Input {
+                width: 100%;
+                height: 40px;
+                background-color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                input {
+                    width: 100%;
+                    border: none;
+                    outline: none;
+                    color: var(--black);
+                    font-family: Amiko, sans-serif;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    margin-left: 4px;
+                }
+
+                button {
+                    background-color: transparent;
+                    width: 50px;
+                    height: 30px;
+                    border: none;
+                    color: var(--black);
+                    font-family: Amiko, sans-serif;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    margin-right: 5px;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: var(--gray);
+                    }
+
+                    &:active {
+                        background-color: var(--active);
+                    }
+                }
+
+                button:disabled {
+                    color: var(--gray);
+                    cursor: auto;
+
+                    &:hover {
+                        background-color: transparent;
+                    }
+
+                    &:active {
+                        background-color: transparent;
+                    }
+                }
+            }
+
+            .Select {
+                display: flex;
+                justify-content: right;
+                gap: 12px;
+
+                button {
+                    background-color: transparent;
+                    width: 50px;
+                    height: 30px;
+                    border: none;
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: var(--gray);
+                        color: var(--black);
+                    }
+
+                    &:active {
+                        background-color: var(--active);
+                        color: var(--black)
+                    }
+                }
+            }
+
+            .Loading {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    .ConModal {
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--shadow);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+
+        .Body {
+            height: 150px;
+            width: 250px;
+            padding: 12px;
+            background-color: var(--blue);
+            backdrop-filter: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .Title {
+                color: white;
+                font-family: Amiko, sans-serif;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+
+            .Links {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 15px;
+                padding-top: 15px;
+
+                .Link {
+                    flex-direction: column;
+                    text-align: center;
+                    
+                    img {
+                        width: 56px;
+                        height: 56px;
+                        border-radius: 10%;
+                        display: block;
+                    }
+    
+                    span {
+                        color: white;
+                        font-family: Amiko, sans-serif;
+                        font-size: 13px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                    }
+
+                    :hover, img:hover + span {
+                        text-decoration: underline;
+                        cursor: pointer;
+                    }
+
+                    :active, img:active + span{
+                        color: var(--active);
+                    }
+                }
+            }
+
+            .Close {
+                display: flex;
+                justify-content: right;
+
+                button {
+                    background-color: transparent;
+                    width: 50px;
+                    height: 30px;
+                    border: none;
+                    color: white;
+                    font-family: Amiko, sans-serif;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: var(--gray);
+                        color: var(--black);
+                    }
+
+                    &:active {
+                        background-color: var(--active);
+                        color: var(--black);
+                    }
+                }
+            }
+        }
+    }
+}
