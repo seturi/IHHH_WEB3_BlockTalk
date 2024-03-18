@@ -1009,23 +1009,37 @@
 
             .Links {
                 display: flex;
-                flex-direction: column;
-                gap: 8px;
+                justify-content: center;
+                align-items: center;
+                gap: 15px;
+                padding-top: 15px;
 
-                span {
-                    color: white;
-                    font-family: Amiko, sans-serif;
-                    font-size: 13px;
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: normal;
-                    cursor: pointer;
-
-                    &:hover {
-                        text-decoration: underline;
+                .Link {
+                    flex-direction: column;
+                    text-align: center;
+                    
+                    img {
+                        width: 56px;
+                        height: 56px;
+                        border-radius: 10%;
+                        display: block;
+                    }
+    
+                    span {
+                        color: white;
+                        font-family: Amiko, sans-serif;
+                        font-size: 13px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
                     }
 
-                    &:active {
+                    :hover, img:hover + span {
+                        text-decoration: underline;
+                        cursor: pointer;
+                    }
+
+                    :active, img:active + span{
                         color: var(--active);
                     }
                 }

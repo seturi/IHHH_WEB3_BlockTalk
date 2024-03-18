@@ -40,6 +40,7 @@ const Input = ({ inputText, handleInputChange, handleEnter, inputRef, setRowHeig
                 onChange={handleInputChange}
                 onKeyDown={handleEnter}
                 disabled={inputDisabled}
+                placeholder="Enter your message ..."
             />
         </div>
     );
@@ -241,12 +242,12 @@ export const ChatRoom = ({ name, address, myContract, openToast }) => {
                         />
                     </div>
                 </> : <div className="Space">
-                    <div className="TopBar">Let's get started</div>
+                    <div className="TopBar">Let's get started!</div>
                     <div className="LogoPanel">
                         <p>
-                            1. Press add to start your chat<br />
-                            2. Generate code or enter your friend's code<br />
-                            3. Select your friend in chats and start chatting
+                            1. Press add to start new chat<br />
+                            2. Generate your code or enter your friend's code<br />
+                            3. Select your friend in chats and start chatting!
                         </p>
                         <div className="Contact" onClick={() => dispatch(setConModal(true))}>
                             <FontAwesomeIcon icon={faUsers} size="3x" />

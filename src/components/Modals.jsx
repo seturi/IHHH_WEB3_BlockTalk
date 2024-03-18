@@ -6,6 +6,9 @@ import { setAddModal, setGenModal, setEntModal, setConModal } from "../redux/sta
 import { toastType } from "../redux/states/Toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import seturi from "../images/github/seturi.png"
+import D0TORI from "../images/github/D0TORI.png"
+import Estrel05 from "../images/github/Estrel05.png"
 
 export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, openToast }) => {
     const dispatch = useDispatch();
@@ -148,7 +151,8 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
         const [code, setCode] = useState("");
 
         const handleChange = (event) => {
-            setCode(event.target.value);
+            // TODO: 한글 입력 방지
+            setCode(event.target.value.toUpperCase());
         };
 
         const submit = () => {
@@ -196,14 +200,17 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
                 <div className="Body">
                     <span className="Title">Contact us</span>
                     <div className="Links">
-                        <div onClick={() => window.open("https://github.com/seturi")}>
-                            <span>seturi(김순욱, Front, Leader)</span>
+                        <div className="Link" onClick={() => window.open("https://github.com/seturi")}>
+                            <img src={seturi} alt="seturi" />
+                            <span>김순욱</span>
                         </div>
-                        <div onClick={() => window.open("https://github.com/Estrel05")}>
-                            <span>Estrel05(이태경, Front)</span>
+                        <div className="Link" onClick={() => window.open("https://github.com/Estrel05")}>
+                            <img src={Estrel05} alt="Estrel05" />
+                            <span>이태경</span>
                         </div>
-                        <div onClick={() => window.open("https://github.com/D0TORI")}>
-                            <span>D0TORI(전승민, Back)</span>
+                        <div className="Link" onClick={() => window.open("https://github.com/D0TORI")}>
+                            <img src={D0TORI} alt="D0TORI" />
+                            <span>전승민</span>
                         </div>
                     </div>
                     <div className="Close">
