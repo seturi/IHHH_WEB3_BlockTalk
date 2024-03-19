@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/IHHH_WEB3_BlockTalk/static/css/main.d49feb5a.css",
-    "main.js": "/IHHH_WEB3_BlockTalk/static/js/main.97be43d5.js",
+    "main.js": "/IHHH_WEB3_BlockTalk/static/js/main.e00ecf22.js",
     "static/media/blocktalk_t.png": "/IHHH_WEB3_BlockTalk/static/media/blocktalk_t.2fb224de1ea8ac7f4e99.png",
     "index.html": "/IHHH_WEB3_BlockTalk/index.html",
     "static/media/refresh.svg": "/IHHH_WEB3_BlockTalk/static/media/refresh.4b49d7d2de6801403e09eddfaca9dc37.svg",
@@ -9,10 +9,10 @@
     "static/media/send.svg": "/IHHH_WEB3_BlockTalk/static/media/send.5450ce33eac9f7f0217b5e270b7c27e3.svg",
     "static/media/close.svg": "/IHHH_WEB3_BlockTalk/static/media/close.1f405c91cdbc08f16eb537b208f54657.svg",
     "main.d49feb5a.css.map": "/IHHH_WEB3_BlockTalk/static/css/main.d49feb5a.css.map",
-    "main.97be43d5.js.map": "/IHHH_WEB3_BlockTalk/static/js/main.97be43d5.js.map"
+    "main.e00ecf22.js.map": "/IHHH_WEB3_BlockTalk/static/js/main.e00ecf22.js.map"
   },
   "entrypoints": [
     "static/css/main.d49feb5a.css",
-    "static/js/main.97be43d5.js"
+    "static/js/main.e00ecf22.js"
   ]
 }
