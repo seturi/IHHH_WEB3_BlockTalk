@@ -34,7 +34,7 @@ const App = () => {
         let name;
         if (present) name = await contract.getUsername(address);
         else {
-          name = prompt("Enter your name", "Guest");
+          name = prompt("Enter your name :)", "Guest");
           if (name === "") name = "Guest";
           await contract.createAccount(name);
         }
@@ -62,7 +62,7 @@ const App = () => {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
-        <Route path="/"
+        <Route path=""
           element={isLoggedIn ? <Navigate to="main" />
             : <Login login={async () => login()} />} />
         <Route path="/main"
