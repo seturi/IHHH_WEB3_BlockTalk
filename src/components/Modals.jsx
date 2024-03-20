@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PulseLoader } from "react-spinners";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { setAddModal, setGenModal, setEntModal, setConModal } from "../redux/states/Modals";
+import { setAddModal, setGenModal, setEntModal, setConModal, setNamModal } from "../redux/states/Modals";
 import { toastType } from "../redux/states/Toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket, faRightToBracket } from "@fortawesome/free-solid-svg-icons";
@@ -10,12 +10,13 @@ import seturi from "../images/github/seturi.png"
 import D0TORI from "../images/github/D0TORI.png"
 import Estrel05 from "../images/github/Estrel05.png"
 
-export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, openToast }) => {
+export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, openToast, createAccount }) => {
     const dispatch = useDispatch();
     const addModal = useSelector(state => state.modal.addModal);
     const genModal = useSelector(state => state.modal.genModal);
     const entModal = useSelector(state => state.modal.entModal);
     const conModal = useSelector(state => state.modal.conModal);
+    const namModal = useSelector(state => state.modal.namModal);
 
     const openAddModal = () => {
         dispatch(setAddModal(true));
@@ -39,6 +40,7 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
         dispatch(setGenModal(false));
         dispatch(setEntModal(false));
         dispatch(setConModal(false));
+        dispatch(setNamModal(false));
     };
 
     const AddModal = () => {
@@ -127,7 +129,7 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
         )
     };
 
-    const Input = ({ code, handleChange, handleEnter, submit }) => {
+    const Input = ({ txt, handleChange, handleEnter, submit, placeholder}) => {
         const isToastOpened = useSelector(state => state.toast.isOpen);
 
         return (
@@ -137,12 +139,13 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
                     type="text"
                     spellCheck={false}
                     maxLength={7}
-                    value={code}
+                    value={txt}
                     onChange={handleChange}
                     onKeyDown={handleEnter}
                     disabled={isToastOpened}
+                    placeholder={placeholder}
                 />
-                <button onClick={submit} disabled={code.length < 7}>submit</button>
+                <button onClick={submit}>submit</button>
             </div>
         )
     };
@@ -173,9 +176,10 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
                     {(!load) ?
                         <>
                             <Input
-                                code={code}
+                                txt={code}
                                 handleChange={handleChange}
                                 handleEnter={handleEnter}
+                                disabled={code.length < 7}
                                 submit={submit}
                             />
                             <div className="Select">
@@ -221,12 +225,61 @@ export const Modals = ({ codeRef, validTimeRef, generateCode, addFriend, load, o
         )
     };
 
+    const NamModal = () => {
+        const [name, setName] = useState("");
+
+        const handleChange = (event) => {
+            // TODO: 한글 입력 방지
+            setName(event.target.value);
+        };
+
+        const submit = () => {
+            if (name === "") setName("Guest");
+            createAccount(name);
+        };
+
+        const handleEnter = (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                submit();
+            }
+        };
+        return (
+            <div className="NamModal">
+                <div className="Body">
+                    <span className="Title">Welcome! Tell me your name :)</span>
+                    {/* {(!load) ? */}
+                        <>
+                            <Input
+                                txt={name}
+                                handleChange={handleChange}
+                                handleEnter={handleEnter}
+                                submit={submit}
+                                placeholder="Guest"
+                            />
+                            <div className="Close">
+                                <button onClick={closeModal}>Close</button>
+                            </div>
+                        </> 
+                        {/* : <>
+                            <div className="Loading">
+                                <PulseLoader color="white" size={10} />
+                            </div>
+                            <div className="bottom" />
+                        </>
+                    } */}
+                </div >
+            </div >
+        )
+    };
+
     return (
         <div className="Modals">
             {addModal && <AddModal />}
             {genModal && <GenModal />}
             {entModal && <EntModal />}
             {conModal && <ConModal />}
+            {namModal && <NamModal />}
         </div>
     )
 };

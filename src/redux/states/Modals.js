@@ -6,7 +6,8 @@ const modalSlice = createSlice({
         addModal: false,
         genModal: false,
         entModal: false,
-        conModal: false
+        conModal: false,
+        namModal: false
     },
     reducers: {
         setAddModal: (state, action) => {
@@ -20,9 +21,12 @@ const modalSlice = createSlice({
         },
         setConModal: (state, action) => {
             state.conModal = action.payload;
+        },
+        setNamModal:(state, action) => {
+            state.namModal = action.payload;
         }
     }
 });
 
-export const { setAddModal, setGenModal, setEntModal, setConModal } = modalSlice.actions;
+export const { setAddModal, setGenModal, setEntModal, setConModal, setNamModal } = modalSlice.actions;
 export default modalSlice.reducer;

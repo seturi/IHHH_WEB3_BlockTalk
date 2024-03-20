@@ -4,12 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavBar, SideBar, Modals, Toast, ChatRoom } from "../components/Components"
 import { setAddModal, setGenModal } from "../redux/states/Modals";
 import { open, toastType } from "../redux/states/Toast";
+import { useContract } from "../ContractContext";
 
-export const Main = (props) => {
+export const Main = () => {
     const dispatch = useDispatch();
+    const myContract = useContract();
     const index = useSelector(state => state.chat.index);
     const genModal = useSelector(state => state.modal.genModal);
     const toast = useSelector(state => state.toast.isOpen);
+    const myName = useSelector(state => state.account.myName);
+    const myPublicKey = useSelector(state => state.account.myPublicKey);
+    const myProvider = useSelector(state => state.account.myProvider);
     const [friends, setFriends] = useState([]);
     const [load, setLoad] = useState(false);
     const codeRef = useRef({
@@ -25,21 +30,20 @@ export const Main = (props) => {
     const generateCode = async () => {
         if (!codeRef.current.code) {
             try {
-                const tx = await props.myContract.generateKeyString();
+                const tx = await myContract.generateKeyString();
                 const receipt = await tx.wait();
                 const key = receipt.events[0].args.key;
                 const code = utils.toUtf8String(key);
                 codeRef.current.code = code;
-                const blockNumber = await props.myProvider.getBlockNumber();
-                const block = await props.myProvider.getBlock(blockNumber);
+                const blockNumber = await myProvider.getBlockNumber();
+                const block = await myProvider.getBlock(blockNumber);
                 const timeStamp = block.timestamp;
                 codeRef.current.timeStamp = timeStamp;
                 openToast(toastType.SUCC, "The code has generated");
             } catch (err) {
                 dispatch(setAddModal(true));
                 dispatch(setGenModal(false));
-                openToast(toastType.FAIL, err.error?.message.substring(20) || "User denied transation signature");
-                console.error(err);
+                openToast(toastType.FAIL, err.error?.message.substring(20) || "User denied transaction signature");
             }
         }
     };
@@ -48,12 +52,12 @@ export const Main = (props) => {
         setLoad(true);
 
         try {
-            const tx = await props.myContract.addFriendbyCode(code);
+            const tx = await myContract.addFriendbyCode(code);
             await tx.wait();
             setLoad(false);
             openToast(toastType.SUCC, "Friend added successfully")
         } catch (err) {
-            openToast(toastType.FAIL, err.error?.message.substring(20) || "User denied transation signature");
+            openToast(toastType.FAIL, err.error?.message.substring(20) || "User denied transaction signature");
             setLoad(false);
         }
     };
@@ -80,7 +84,7 @@ export const Main = (props) => {
             let friendList = [];
 
             try {
-                const data = await props.myContract.getMyFriendList();
+                const data = await myContract.getMyFriendList();
                 data.forEach((item) => {
                     friendList.push({ "publicKey": item[0], "name": item[1] });
                 })
@@ -91,7 +95,7 @@ export const Main = (props) => {
         };
 
         loadFriends();
-    }, [props.myProvider, props.myContract]);
+    }, [myProvider, myContract]);
 
     useEffect(() => {
         let requestId;
@@ -131,8 +135,8 @@ export const Main = (props) => {
         <div className="Main" onMouseDown={deselect}>
             <div className="Container">
                 <NavBar
-                    name={props.name}
-                    address={props.address}
+                    name={myName}
+                    address={myPublicKey}
                     openToast={openToast}
                 />
                 <div className="Contents">
@@ -140,7 +144,7 @@ export const Main = (props) => {
                     <ChatRoom
                         name={(index !== null) ? friends[index].name : null}
                         address={(index !== null) ? friends[index].publicKey : null}
-                        myContract={props.myContract}
+                        myContract={myContract}
                         openToast={openToast}
                     />
                 </div>
